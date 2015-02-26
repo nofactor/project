@@ -1,0 +1,70 @@
+﻿@{
+    ViewBag.Title = "Cart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    IList<PhungNoiProject.Models.Product> cart = (IList<PhungNoiProject.Models.Product>)Session["cart"];
+}
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Current Order</h1>
+    </div>
+
+
+    <div class="panel panel-primary">
+
+        <div class="panel-heading">
+            Cart
+        </div>
+        <!-- /.panel-heading -->
+        <div class="panel-body">
+            <div class="table-responsive">
+<table class="table">
+
+                           @* <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>@Html.DisplayNameFor(model => model.picture)</th>
+                                    <th>@Html.DisplayNameFor(model => model.name)</th>
+                                    <th>@Html.DisplayNameFor(model => model.price)</th>
+                                    <th>@Html.DisplayNameFor(model => model.category)</th>
+                                    <th>@Html.DisplayNameFor(model => model.info)</th>
+                                    <th>Quantity</th>
+
+                                </tr>
+                            </thead>*@
+
+                            <tbody>
+                                @if (cart != null && cart.Count > 0)
+                                {
+                                foreach (var item in cart)
+                                {
+                             
+                                    <tr>
+
+                                        <td>@Html.DisplayFor(model => item.id)</td>
+                                        <td>
+                                        <img src="@Html.ValueFor(model => item.picture)"/></td>
+                                        <td>@Html.DisplayFor(model => item.name)</td>
+                                        <td>@Html.DisplayFor(model => item.price)</td>
+                                        <td>@Html.DisplayFor(model => item.category)</td>
+                                        <td>@Html.DisplayFor(model => item.info)</td>
+                                        <td>@Html.DisplayFor(model => item.quantity)</td>
+                                        @*, new { id = string.Format("Qty_{0}", model[i].id), type = "number", min = 0, max = 1000 })</td>
+
+                                        <td>
+                                            <input type="button" value="add" onclick="addItem(@Html.DisplayFor(model => model[i].id),'@Html.DisplayFor(model => model[i].name)')" /></td>*@
+                                    </tr>
+                               
+                                           
+                                }
+                                }else{
+                                    <h3>You didn't create an order yet.</h3>
+                                }
+                            </tbody>
+                        </table>
+                @Html.ActionLink("Product","Product", "Home")
+                </div>
+            </div>
+        </div>
+    </div>
+
+

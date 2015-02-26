@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+  dslVersion="1.0.0.0"
+  Id="49f3d5fc-9a36-4bb9-8e6c-ce6197a40133"
+  name="Services"
+  visibility="Private" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <referencesInternal>
+    <reference
+      Id="38f25ec3-1dda-4f29-bb91-2c43544b331f"
+      handle="viewcode://./CodeSchema_Namespace?Namespace%3DPhungNoiProject.Services"
+      tag="ViewCode" />
+  </referencesInternal>
+  <packagedElements>
+    <packageHasNamedElement>
+      <Interface
+        Id="2888fffa-4e4b-437a-bcf6-e182df0350b5"
+        name="IAuthentication"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="200d9084-a4f6-464d-aae8-a9fda7ac7c6f"
+            handle="viewcode://./CodeSchema_Interface?Assembly%3Dfile:%2F%2F%2FE:%2FSENIOR-PROJECT%2FPhungNoi%2Fbin%2FPhungNoiProject.dll Namespace%3DPhungNoiProject.Services Type%3DIAuthentication"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="1fa7afc3-f4cf-4856-96e3-36f9155454c0"
+            name="interface"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="a976589a-8fbf-43db-b8ec-e5f97bf08c33">
+                <propertyInstance
+                  Id="817432c6-0748-4066-8192-fc32060ae2a1"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="390b7f09-f27b-4ba2-a0f0-68cac7d35be6">
+                <propertyInstance
+                  Id="d26a1588-9797-49af-8b68-ea49e130fc94"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="d9a582ee-4cb1-4f6d-9f96-a51b1995ae20">
+                <propertyInstance
+                  Id="2cf5631d-df2a-47eb-9b07-0e7745bda582"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="8e36124d-6931-453f-9a06-f2ae9699bfd4">
+                <propertyInstance
+                  Id="44d4e9c2-eaf4-4f11-a913-32f3dcde7125"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+      </Interface>
+    </packageHasNamedElement>
+  </packagedElements>
+</package>

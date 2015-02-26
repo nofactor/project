@@ -1,0 +1,138 @@
+﻿@model PhungNoiProject.Models.User
+
+@{
+    ViewBag.Title = "Edit";
+}
+<style>
+  .thumb {
+    height: 75px;
+    border: 1px solid #000;
+    margin: 10px 5px 0 0;
+  }
+</style>
+
+<script>
+    // Check for the various File API support.
+    if (window.File && window.FileReader && window.FileList && window.Blob) {
+        // Great success! All the File APIs are supported.
+    } else {
+        alert('The File APIs are not fully supported in this browser.');
+    }
+</script>
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">@ViewBag.Title</h1>
+    </div>
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            Edit User
+        </div>
+        <div class="panel-body">
+            <h2>@TempData["msg"]</h2>
+            @using (Html.BeginForm("Edit", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.ValidationSummary(true)
+
+                <form role="form">
+                    <div class="col-lg-5">
+
+
+                        @Html.HiddenFor(model => model.UserId)
+
+                        <div class="form-group">
+                            <label>User Name</label>
+                            @Html.TextBoxFor(model => model.UserName, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.UserName)
+                        </div>
+
+                        <div class="form-group">
+                            <label>Password</label>
+                            @Html.TextBoxFor(model => model.Userpassword, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Userpassword)
+                        </div>
+
+                        <div class="form-group">
+                            <label>First Name</label>
+                            @Html.TextBoxFor(model => model.firstName, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.firstName)
+                        </div>
+
+                        <div class="form-group">
+                            <label>Last Name</label>
+                            @Html.TextBoxFor(model => model.lastName, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.lastName)
+                        </div>
+                        
+                        <div>
+                            <input type="submit" class="btn btn-primary" value="Save" />
+                        </div>
+
+                    </div>
+                    <div class="col-lg-5">
+
+                        <div class="form-group">
+                            <label>Address</label>
+                            @Html.TextBoxFor(model => model.address, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.address)
+                        </div>
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            @Html.TextBoxFor(model => model.phoneNumber, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.phoneNumber)
+                        </div>
+                        <div class="form-group">
+                            <label>Picture</label>
+                           <output id="list"></output>
+
+                            @Html.TextBoxFor(model => model.picturePath, new { @class = "btn btn-primary", @id = "file", @type = "file", @content = "xxxx" })
+                            @Html.ValidationMessageFor(model => model.picturePath)
+                        </div>
+                    </div>
+                </form>
+            }
+        </div>
+    </div>
+</div>
+
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+<script>
+    function handleFileSelect(evt) {
+        var files = evt.target.files; // FileList object
+
+        // Loop through the FileList and render image files as thumbnails.
+        for (var i = 0, f; f = files[i]; i++) {
+
+            // Only process image files.
+            if (!f.type.match('image.*')) {
+                continue;
+            }
+
+            var reader = new FileReader();
+
+            // Closure to capture the file information.
+            reader.onload = (function (theFile) {
+                return function (e) {
+                    // Render thumbnail.
+                    var span = document.createElement('span');
+                    span.innerHTML = ['<img class="thumb" src="', e.target.result,
+                                      '" title="', escape(theFile.name), '"/>'].join('');
+                    document.getElementById('list').innerHTML = "";
+                    document.getElementById('list').insertBefore(span, null);
+                };
+            })(f);
+
+            // Read in the image file as a data URL.
+            reader.readAsDataURL(f);
+        }
+    }
+
+    document.getElementById('file').addEventListener('change', handleFileSelect, false);
+</script>

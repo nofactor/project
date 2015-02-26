@@ -1,0 +1,61 @@
+﻿@model PhungNoiProject.Models.Order
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Order</legend>
+
+        @Html.HiddenFor(model => model.id)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.user_id, "UserProfile")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("user_id", String.Empty)
+            @Html.ValidationMessageFor(model => model.user_id)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.orderDate)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.orderDate)
+            @Html.ValidationMessageFor(model => model.orderDate)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.dueDate)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.dueDate)
+            @Html.ValidationMessageFor(model => model.dueDate)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.orderStatus)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.orderStatus)
+            @Html.ValidationMessageFor(model => model.orderStatus)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

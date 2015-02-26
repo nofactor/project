@@ -1,0 +1,18 @@
+﻿using PhungNoiProject.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace PhungNoiProject.Services
+{
+    public interface IAuthentication
+    {
+        bool CreateUserAndAccount(UserProfile user);
+        bool Login(LoginModel model);
+        bool Logout();
+        void AddUserToRole(string userName, string rolesName);
+        void DeleteUserAccount(UserProfile user);
+    }
+}

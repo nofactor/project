@@ -1,0 +1,234 @@
+@CHARSET "UTF-8";
+body {
+	margin: 0px;
+	font-family: sans-serif,monospace,inherit;
+	font-size: small;
+	position:relative;
+	z-index: 1;
+}
+
+.wrapper {
+	width: inherit;; height: inherit; min-height: 800px; text-align: center;min-width: 980px;
+}
+
+.headframe {
+	background-image:url("../images/webhead.png");
+	background-repeat:no-repeat;
+	width: 900px;height: 150px;margin-left: auto;margin-right: auto;
+}
+
+.headmenu {
+	float: right;
+}
+
+.contentframe {
+	min-height: 800px; background-color: white;min-width: 680px;width: 100%;
+}
+
+.leftpanel {
+	width: 180px;height: inherit ;min-height:800px; background-color: #cccccc;float: left;
+}
+.contentpanel{
+width: 100%;
+}
+.footerframe {
+	width:900px;
+	background-color: #aaaaaf;
+	height: 40px;
+	margin-left: auto;margin-right: auto;
+}
+
+/* animated headmenu style */
+
+.headmenu ul{  
+    margin:0;  
+    padding:0;  
+}  
+  
+.headmenu li{  
+    width:100px;  
+    height:40px;  
+    float:left;  
+    color:#191919;  
+    text-align:center;  
+    overflow:hidden;  
+}  
+  
+.headmenu a{  
+    color:#FFF;  
+    text-decoration:none;  
+}
+
+a , img{  
+    text-decoration:none;  
+    border: 0px;
+}  
+  
+.headmenu p{  
+    padding:0px 0px;  
+}  
+  
+.headmenu  .subtext{  
+        padding-top:5px;  
+    }  
+    
+ .nom {
+   background-color: white;
+   width: 100%;
+   display: block;
+   }
+/*Menu Color Classes*/  
+.green{background:#6AA63B;}  
+.yellow{background:#FBC700;}  
+.red{background:#D52100;}  
+.purple{background:#5122B4;}  
+.blue{background:#0292C0;}
+
+ .subtext a{text-align: center;display: block;width: 100%;}  
+
+
+.green .subtext a:hover{background:#3D8703;}  
+.yellow .subtext a:hover{background:#E6BC1C;}  
+.red .subtext a:hover{background:#B02910;}  
+.purple .subtext a:hover{background:#3E1299;}  
+.blue .subtext a:hover{background:#0A6F8F;}
+
+
+/* Easy Slider */
+.advertisement{
+	 width: inherit;
+}
+	#slider ul, #slider li
+	{
+		margin:0;
+		padding:0;
+		list-style:none;
+		}
+	#slider{margin-left: auto;margin-right: auto;margin-top: 10px;} 
+	#slider li{ 
+		/* 
+			define width and height of list item (slide)
+			entire slider area will adjust according to the parameters provided here
+		*/ 
+		
+		width:696px;
+		height:241px;
+		overflow:hidden; 
+		}	
+	#prevBtn, #nextBtn,
+	#slider1next, #slider1prev{ 
+		display:block;
+		width:30px;
+		height:77px;
+		position:absolute;
+		left:-30px;
+		top:71px;
+		z-index:1000;
+		}	
+	#nextBtn, #slider1next{ 
+		left:696px;
+		}														
+	#prevBtn a, #nextBtn a,
+	#slider1next a, #slider1prev a{  
+		display:block;
+		position:relative;
+		width:30px;
+		height:77px;
+		background:url("../../images/btn_prev.gif") no-repeat 0 0;	
+		}	
+	#nextBtn a, #slider1next a{ 
+		background:url("images/btn_next.gif") no-repeat 0 0;
+		}	
+		
+	/* numeric controls */	
+ol{
+	float:none;
+	width: 200px;
+	
+}
+	ol#controls{
+		margin:1em 0;
+		padding:0;
+		height:28px;	
+		margin-left: auto;margin-right: auto;
+		}
+		
+
+	ol#controls li{
+		margin:0 5px 0 5px; 
+		padding:0;
+		float:left;
+		list-style:none;
+		height:28px;
+		line-height:28px;
+		}
+	ol#controls li a{
+		float:left;
+		height:28px;
+		line-height:28px;
+		border:1px solid #ccc;
+		background:#DAF3F8;
+		color:#555;
+		padding:0 10px;
+		text-decoration:none;
+		}
+	ol#controls li.current a{
+		background:#5DC9E1;
+		color:#fff;
+		}
+	ol#controls li a:focus, #prevBtn a:focus, #nextBtn a:focus{outline:none;}
+	
+/* // Easy Slider */
+
+/* home body*/
+.contentbody{
+	text-align:left;
+	width:900px;
+	
+min-height:200px;
+margin-left:auto;
+	margin-right:auto;
+
+}
+.contentleft{
+	float:left;
+	width:630px;
+	
+min-height:200px;
+
+		border-width:1px;
+	border-style:solid;
+	border-color:#335491;
+	-moz-border-radius: 15px;
+border-radius: 15px;
+padding:10px;
+	}
+	.contentright{
+	margin-left:10px;
+	float:left;
+	width:216px;
+	
+min-height:200px;
+
+		border-width:1px;
+	border-style:solid;
+	border-color:#335491;
+	-moz-border-radius: 15px;
+border-radius: 15px;
+padding:10px;
+	}
+	.contentfull{
+	margin-top:10px;
+	float:left;
+	width:880px;
+	
+min-height:200px;
+
+		border-width:1px;
+	border-style:solid;
+	border-color:#335491;
+	-moz-border-radius: 15px;
+border-radius: 15px;
+padding:10px;
+	}
+}

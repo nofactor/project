@@ -1,0 +1,67 @@
+﻿using PhungNoiProject.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace PhungNoiProject.Controllers
+{
+    public class EstimationController : Controller
+    {
+        //
+        // GET: /Estimation/
+         phungnoiDBEntities db = new phungnoiDBEntities();
+
+        public ActionResult DailyIngredientReport(Order order)//transaction of ingredient per day
+        {
+            return View("DailyIngredient");
+        }
+
+        public ActionResult MonthlyIngredientReport(Order order)
+        {
+            return View("MounthlyIngredient");
+        }
+        public ActionResult WeeklyIngredientReport(Order order)
+        {
+            return View("WeeklyIngredient");
+
+        }
+        public ActionResult YearIngredientReport(Order order)
+        {
+            return View("YearIngredient");
+        }
+
+        ///order report////
+        public ActionResult IndividualOrderReport(int id)
+        {
+            return View("IndividualOrderReport");
+        }
+        public ActionResult TransactionOrderReport()
+        {
+            return View("TransactionOrderReport");
+        }
+
+    
+        /// ingredient report for one ingredient
+
+        public ActionResult DailyOneIngredientReport(int id)
+        {
+            return View("TransactionOrderReport");
+        }
+        public ActionResult WeeklyOneIngredientReport(int id)
+        {
+            return View("TransactionOrderReport");
+        }
+        public ActionResult MonthOneIngredientReport(int id)
+        {
+            return View("TransactionOrderReport");
+        }
+        public ActionResult YearOneIngredientReport(int id)
+        {
+            return View("TransactionOrderReport");
+        }
+
+
+    }
+}

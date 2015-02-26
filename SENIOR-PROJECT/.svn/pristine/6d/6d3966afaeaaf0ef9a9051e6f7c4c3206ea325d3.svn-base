@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="441d4179f94a48989844ef0d88af5d27" Name="Diagram1" ShowGrid="true" DisplayType="true" ZoomLevel="75">
+        <EntityTypeShape EntityType="phungnoiDBModel.porduct_Ingre" Width="1.875" PointX="7.625" PointY="9.875" />
+        <AssociationConnector Association="phungnoiDBModel.Ingredientporduct_Ingre" />
+        <AssociationConnector Association="phungnoiDBModel.Productporduct_Ingre" />
+        <EntityTypeShape EntityType="phungnoiDBModel.Ingredient" Width="1.5" PointX="5.25" PointY="8.125" />
+        <EntityTypeShape EntityType="phungnoiDBModel.OderDetail" Width="1.5" PointX="7.5" PointY="1.5" />
+        <EntityTypeShape EntityType="phungnoiDBModel.Order" Width="1.5" PointX="5.25" PointY="1.125" />
+        <EntityTypeShape EntityType="phungnoiDBModel.Product" Width="1.5" PointX="5.25" PointY="5.25" />
+        <EntityTypeShape EntityType="phungnoiDBModel.Recipe" Width="1.5" PointX="7.5" PointY="5.375" />
+        <EntityTypeShape EntityType="phungnoiDBModel.Status" Width="1.5" PointX="3" PointY="5.75" />
+        <EntityTypeShape EntityType="phungnoiDBModel.sysdiagrams" Width="1.5" PointX="3" PointY="7.5" />
+        <EntityTypeShape EntityType="phungnoiDBModel.UserProfile" Width="1.5" PointX="3" PointY="1" />
+        <EntityTypeShape EntityType="phungnoiDBModel.webpages_Membership" Width="1.5" PointX="7.875" PointY="8.125" />
+        <EntityTypeShape EntityType="phungnoiDBModel.webpages_OAuthMembership" Width="1.5" PointX="9.75" PointY="0.75" />
+        <EntityTypeShape EntityType="phungnoiDBModel.webpages_Roles" Width="1.5" PointX="0.75" PointY="1.75" />
+        <EntityTypeShape EntityType="phungnoiDBModel.ordering" Width="1.5" PointX="9.75" PointY="3.75" />
+        <EntityTypeShape EntityType="phungnoiDBModel.reciping" Width="1.5" PointX="9.75" PointY="8.75" />
+        <AssociationConnector Association="phungnoiDBModel.FK_Recipe_Ingredient" />
+        <AssociationConnector Association="phungnoiDBModel.FK_OderDetail_Order" />
+        <AssociationConnector Association="phungnoiDBModel.FK_OderDetail_Product" />
+        <AssociationConnector Association="phungnoiDBModel.FK_Order_Status" />
+        <AssociationConnector Association="phungnoiDBModel.FK_Order_User" />
+        <AssociationConnector Association="phungnoiDBModel.FK_Recipe_Product" />
+        <AssociationConnector Association="phungnoiDBModel.webpages_UsersInRoles" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

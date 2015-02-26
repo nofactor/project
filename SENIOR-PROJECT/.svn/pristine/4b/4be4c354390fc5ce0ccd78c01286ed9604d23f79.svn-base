@@ -1,0 +1,213 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using PhungNoiProject.Models;
+using WebMatrix.WebData;
+using System.Web.Security;
+using PhungNoiProject.Filters;
+using System.Net;
+
+namespace PhungNoiProject.Controllers
+{
+    [Authorize]
+    [InitializeSimpleMembership]
+    public class UserController : Controller
+    {
+        private phungnoiDBEntities db = new phungnoiDBEntities();
+
+        //
+        // GET: /User/
+
+        public ActionResult Index()
+        {
+            return View(db.User.ToList());
+        }
+
+        //
+        // GET: /User/Details/5
+
+        public ActionResult Details(int id)
+        {
+            User user = db.User.Find(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            TempData["Msg"] = string.Format("Details for user '{0}'.", user.UserName);
+            return View(user);
+        }
+
+        [HttpGet]
+        public ActionResult UserProfile(string id)
+        {
+            string idString = WebUtility.UrlDecode(id).Replace("|",".");
+            User user = db.User.FirstOrDefault(x => x.UserName == idString);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            return View(user);
+        }
+
+        //
+        // GET: /User/Create
+
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        //
+        // POST: /User/Create
+
+        [HttpPost]
+        public ActionResult Create(User user)
+        {
+            User savedUser = null;
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    //db.User.Add(user);
+
+                    WebSecurity.CreateUserAndAccount(user.UserName, user.Userpassword);
+                    savedUser = db.User.FirstOrDefault(x => x.UserName == user.UserName);
+                    if (savedUser != null)
+                    {
+                        savedUser.UserName = user.UserName;
+                        savedUser.firstName = user.firstName;
+                        savedUser.lastName = user.lastName;
+                        savedUser.phoneNumber = user.phoneNumber;
+                        savedUser.address = user.address;
+                        savedUser.picturePath = user.picturePath;
+
+                        savedUser.createDate = DateTime.Now;
+                        //savedUser.lastSignInDate = user.lastSignInDate;
+
+                        db.SaveChanges();
+                        Roles.AddUserToRole(savedUser.UserName, "User");
+                        TempData["Msg"] = string.Format("User '{0}' has been created.", savedUser.UserName);
+                    }
+                }
+                catch (MembershipCreateUserException e)
+                {
+                    ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
+                    return View();
+                }
+                System.Web.Routing.RouteValueDictionary value = new System.Web.Routing.RouteValueDictionary();
+                value.Add("id", savedUser.UserId);
+                return RedirectToAction("Details", value);
+            }
+
+            return View(user);
+        }
+
+        //
+        // GET: /User/Edit/5
+
+        public ActionResult Edit(int id = 0)
+        {
+            User user = db.User.Find(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            return View(user);
+        }
+
+        //
+        // POST: /User/Edit/5
+
+        [HttpPost]
+        public ActionResult Edit(User user)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(user).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(user);
+        }
+
+        //
+        // GET: /User/Delete/5
+
+        public ActionResult Delete(int id = 0)
+        {
+            User user = db.User.Find(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            return View(user);
+        }
+
+        //
+        // POST: /User/Delete/5
+
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            User user = db.User.Find(id);
+            try
+            {
+                ((SimpleMembershipProvider)Membership.Provider).DeleteAccount(user.UserName); // deletes record from webpages_Membership table
+                ((SimpleMembershipProvider)Membership.Provider).DeleteUser(user.UserName, true);
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.ErrorMessage = ex.Message;
+            }
+            return View(user);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            db.Dispose();
+            base.Dispose(disposing);
+        }
+        private static string ErrorCodeToString(MembershipCreateStatus createStatus)
+        {
+            // See http://go.microsoft.com/fwlink/?LinkID=177550 for
+            // a full list of status codes.
+            switch (createStatus)
+            {
+                case MembershipCreateStatus.DuplicateUserName:
+                    return "User name already exists. Please enter a different user name.";
+
+                case MembershipCreateStatus.DuplicateEmail:
+                    return "A user name for that e-mail address already exists. Please enter a different e-mail address.";
+
+                case MembershipCreateStatus.InvalidPassword:
+                    return "The password provided is invalid. Please enter a valid password value.";
+
+                case MembershipCreateStatus.InvalidEmail:
+                    return "The e-mail address provided is invalid. Please check the value and try again.";
+
+                case MembershipCreateStatus.InvalidAnswer:
+                    return "The password retrieval answer provided is invalid. Please check the value and try again.";
+
+                case MembershipCreateStatus.InvalidQuestion:
+                    return "The password retrieval question provided is invalid. Please check the value and try again.";
+
+                case MembershipCreateStatus.InvalidUserName:
+                    return "The user name provided is invalid. Please check the value and try again.";
+
+                case MembershipCreateStatus.ProviderError:
+                    return "The authentication provider returned an error. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
+
+                case MembershipCreateStatus.UserRejected:
+                    return "The user creation request has been canceled. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
+
+                default:
+                    return "An unknown error occurred. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
+            }
+        }
+    }
+}

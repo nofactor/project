@@ -1,0 +1,19 @@
+﻿@model PhungNoiProject.Models.Recipe
+
+<tr>
+    @Html.HiddenFor(model => model.recipeID)
+                                              @Html.HiddenFor(model => model.ingredID)
+                                            <td>
+                                                <img src=" @Html.ValueFor(model => model.Ingredient.ingredPicture)" height="50"; width="75"/></td>
+                                            <td>@Html.DisplayFor(model => model.Ingredient.ingredName)</td>
+                                            <td>@Html.EditorFor(model => model.ingredQuantity)</td>
+                                            <td>@Html.EditorFor(model => model.unitID)</td>
+                                            <td>@Html.DisplayFor(model => model.Units.unitName)</td>
+                                            <td>@Html.ActionLink("delete", "Delete", new { id = Model.ingredID })</td>
+
+
+
+
+
+
+                                        </tr>

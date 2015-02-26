@@ -1,0 +1,186 @@
+﻿using System;
+using System.IO;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using PhungNoiProject.Models;
+using System.Web.Helpers;
+using System.Configuration;
+
+namespace PhungNoiProject.Controllers
+{
+    [Authorize]
+    public class ProductController : Controller
+    {
+        private phungnoiDBEntities db = new phungnoiDBEntities();
+        List<Product> products = null;
+
+        //
+        // GET: /Default1/
+
+        public ActionResult Index()
+        {
+
+            if (Request != null && Request.Params["q"] != null)
+            {
+                string q = Request.Params["q"];
+                products = db.Product.Where(x => x.name.ToLower().Contains(q.ToLower())).ToList();
+            }
+            else
+            {
+                products = db.Product.ToList();
+            }
+
+            return View(products); ;
+        }
+        //
+        // GET: /Default1/Details/5
+
+        public ActionResult Details(int id = 0)
+        {
+            Product product = db.Product.Find(id);
+            if (product == null)
+            {
+                return HttpNotFound();
+            }
+            return View("Details", product);
+        }
+
+        //
+        // GET: /Default1/Create
+
+        public ActionResult Create()
+        {
+            return View("Create");
+        }
+
+        //
+        // POST: /Default1/Create
+
+        [HttpPost]
+        public ActionResult Create(Product product)
+        {
+            if (ModelState.IsValid)
+            {
+
+                Product result = db.Product.Add(product);
+                db.SaveChanges();
+
+                WebImage image = null;
+                if (Request != null)
+                    image = WebImage.GetImageFromRequest();
+
+                if (image != null)
+                {
+                    string realFileName = result.id + image.FileName;
+                    string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+                    string imageFolder = ConfigurationManager.AppSettings["ImagePath"].ToString();
+                    string fullPath = baseDirectory + imageFolder;
+                    string relativeImagePath = imageFolder + "\\" + realFileName;
+
+                    if (!Directory.Exists(fullPath))
+                    {
+                        Directory.CreateDirectory(fullPath);
+                    }
+                    string imagePath = fullPath + "\\" + realFileName;
+                    image.Save(imagePath);
+                    result.picture = relativeImagePath;
+                    db.SaveChanges();
+                }
+                return RedirectToAction("Index");
+            }
+
+            return View(product);
+        }
+
+        //
+        // GET: /Default1/Edit/5
+
+        public ActionResult Edit(int id = 0)
+        {
+            Product product = db.Product.Find(id);
+            if (product == null)
+            {
+                return HttpNotFound();
+            }
+            return View("Edit", product);
+        }
+
+        //
+        // POST: /Default1/Edit/5
+
+        [HttpPost]
+        public ActionResult Edit(Product product)
+        {
+            if (ModelState.IsValid)
+            {
+                    db.Entry(product).State = EntityState.Modified;
+                    db.SaveChanges();
+                
+             
+
+                WebImage image = null;
+                if (Request != null)
+                    image = WebImage.GetImageFromRequest();
+
+                if (image != null)
+                {
+                    string realFileName = product.id + image.FileName;
+                    string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+                    string imageFolder = ConfigurationManager.AppSettings["ImagePath"].ToString();
+                    string fullPath = baseDirectory + imageFolder;
+                    string relativeImagePath = imageFolder + "\\" + realFileName;
+
+                    if (!Directory.Exists(fullPath))
+                    {
+                        Directory.CreateDirectory(fullPath);
+                    }
+                    string imagePath = fullPath + "\\" + realFileName;
+                    image.Save(imagePath);
+                    product.picture = relativeImagePath;
+                    db.SaveChanges();
+                }
+
+                products = db.Product.ToList();
+                return RedirectToAction("Index", "Product", products);
+            }
+
+            return View(product);
+        }
+
+        //
+        // GET: /Default1/Delete/5
+
+        public ActionResult Delete(int id = 0)
+        {
+            Product product = db.Product.Find(id);
+            if (product == null)
+            {
+                return HttpNotFound();
+            }
+            return View("Delete", product);
+        }
+
+        //
+        // POST: /Default1/Delete/5
+
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Product product = db.Product.Find(id);
+            db.Product.Remove(product);
+            db.SaveChanges();
+            products = db.Product.ToList();
+            return View("Index", products);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            db.Dispose();
+            base.Dispose(disposing);
+        }
+    }
+}

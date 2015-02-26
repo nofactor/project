@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<repositories>
+  <repository path="..\PhungNoiProjectTests\packages.config" />
+  <repository path="..\PhungnoiTestTests\packages.config" />
+  <repository path="..\test01\packages.config" />
+</repositories>

@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - My ASP.NET MVC Application</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    <!-- Core CSS - Include with every page -->
+    <link href="~/Content/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <!-- SB Admin CSS - Include with every page -->
+    <link href="~/Content/css/sb-admin.css" rel="stylesheet" />
+</head>
+<body>
+   
+        @RenderBody()
+
+    <!-- Core Scripts - Include with every page -->
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+            jQuery('.dp').datepicker();
+
+        })
+    </script>
+
+    <!-- SB Admin Scripts - Include with every page -->
+    <script src="~/Scripts/sb-admin.js"></script>
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>
+
+
+

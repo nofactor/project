@@ -1,0 +1,75 @@
+﻿using PhungNoiProject.Models;
+using System.Collections.Generic;
+using System.Web.Mvc;
+using System.Linq;
+using System.Data;
+
+namespace PhungNoiProject.Controllers
+{
+    public class RecipeController : Controller
+    {
+
+        //  GET: /Recipe/
+
+        phungnoiDBEntities db = new phungnoiDBEntities();
+        List<Product> products;
+        [HttpGet]
+        public ActionResult Index()
+        {
+            products = db.Product.ToList();
+
+
+            return View("Index", products);
+        }
+
+        public ActionResult Get(int id=0)
+        {
+            return View();
+        }
+        public ActionResult List()
+        {
+            return View();
+        }
+       
+        public ActionResult Insert(int id=0)
+        {
+            ViewBag["product"] = db.Product.Find(id);
+            IEnumerable<Ingredient> ingre = db.Ingredient.ToList();
+
+            return View("Insert",ingre);
+        }
+        public ActionResult InsertConfirm(int id = 0)
+        {
+            //if (ModelState.IsValid)
+            //{
+            //    db.Entry(ingre).State = EntityState.Modified;
+            //    db.SaveChanges();
+            //    Ingredient ingre = db.Ingredient.Find(id);
+            //}
+            return View("Edit");
+        }
+
+        [HttpGet]
+        public ActionResult Edit(int id = 0)
+        {
+            Product product = db.Product.Find(id);
+            List<Recipe> recipe = db.Recipe.Where(x => x.productID == product.productID).ToList();
+            return View("EditRecipe", recipe);
+        }
+        [HttpPost]
+        public ActionResult SaveRecipe(List<Recipe> rc)
+        {
+            if(ModelState.IsValid){
+                db.Entry(rc).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            return RedirectToAction("Index");
+        }
+       
+        public ActionResult Delete(int id=0)
+        {
+            return View();
+        }
+
+    }
+}

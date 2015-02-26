@@ -1,0 +1,51 @@
+﻿using PhungNoiProject.Models;
+using System.Collections.Generic;
+using System.Web.Mvc;
+using System.Linq;
+
+namespace PhungNoiProject.Controllers
+{
+    public class RecipeController : Controller
+    {
+
+        //  GET: /Recipe/
+
+        phungnoiDBEntities db = new phungnoiDBEntities();
+        List<Product> products;
+        [HttpGet]
+        public ActionResult Index()
+        {
+            products = db.Product.ToList();
+
+
+            return View("Index", products);
+        }
+
+        public ActionResult Get(int id=0)
+        {
+            return View();
+        }
+        public ActionResult List()
+        {
+            return View();
+        }
+       
+        public ActionResult Insert(int id=0)
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult Edit(int id = 0)
+        {
+            Product product = db.Product.Find(id);
+            List<Recipe> recipe = db.Recipe.Where(x => x.productID == product.productID).ToList();
+            return View("EditRecipe", recipe);
+        }
+        public ActionResult Delete(int id=0)
+        {
+            return View();
+        }
+
+    }
+}

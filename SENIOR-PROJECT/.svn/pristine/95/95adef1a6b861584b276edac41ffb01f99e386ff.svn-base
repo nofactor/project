@@ -1,0 +1,66 @@
+﻿@model IEnumerable<PhungNoiProject.Models.Product>
+
+@{
+    ViewBag.Title = "Index";
+}
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Product list</h1>
+    </div>
+
+
+    <div class="panel panel-primary">
+
+        <div class="panel-heading">
+            Products
+        </div>
+        <!-- /.panel-heading -->
+        <div class="panel-body">
+            <div class="table-responsive">
+                <h5>@Html.ActionLink("Create New", "Create")</h5>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>@Html.DisplayNameFor(model => model.name)</th>
+                            <th>@Html.DisplayNameFor(model => model.price)</th>
+                            <th>@Html.DisplayNameFor(model => model.category)</th>
+                            <th>@Html.DisplayNameFor(model => model.picture)</th>
+                            <th>@Html.DisplayNameFor(model => model.info)</th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+
+                                <td>@Html.DisplayFor(modelItem => item.id)</td>
+                                <td>@Html.DisplayFor(modelItem => item.name)</td>
+                                <td>@Html.DisplayFor(modelItem => item.price)</td>
+                                <td>@Html.DisplayFor(model => item.category)</td>
+                                <td>@Html.DisplayFor(model => item.picture)</td>
+                                <td>@Html.DisplayFor(model => item.info)</td>
+                                
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                                                            @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                                                            @Html.ActionLink("Delete", "Delete", new { id = item.id })
+                                </td>
+                            </tr>
+                                               
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+
+        <!-- /.table-responsive -->
+    </div>
+
+    <!-- /.panel-body -->
+</div>

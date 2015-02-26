@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<repositories>
+<<<<<<< .mine
+  <repository path="..\PhungNoi\packages.config" />
+=======
+<<<<<<< .mine
+  <repository path="..\PhungNoi\packages.config" />
+>>>>>>> .r22
+  <repository path="..\PhungNoiProjectTests\packages.config" />
+<<<<<<< .mine
+  <repository path="..\PhungNoiProjectTests1\packages.config" />
+  <repository path="..\PhungNoiProjectTests2\packages.config" />
+=======
+=======
+  <repository path="..\PhungNoiProjectTests\packages.config" />
+>>>>>>> .r22
+  <repository path="..\PhungnoiTestTests\packages.config" />
+>>>>>>> .r19
+  <repository path="..\test01\packages.config" />
+</repositories>

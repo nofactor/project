@@ -1,0 +1,161 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using PhungNoiProject.Controllers;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Web.Mvc;
+using PhungNoiProject.Models;
+using Moq;
+using PhungNoiProject.Services;
+namespace PhungNoiProject.Controllers.Tests
+{
+    [TestClass()]
+    public class UserControllerTests
+    {
+
+        // Arrange
+       
+        private ViewResult result;
+
+        private phungnoiDBEntities db = new phungnoiDBEntities();
+        private UserController controller = new UserController();
+
+        [TestMethod()]
+        public void IndexTest()
+        {
+            // Act
+            result = controller.Index() as ViewResult;
+            // Assert
+            string viewname = "Index";
+            Assert.IsNotNull(result);
+            Assert.AreEqual(viewname, result.ViewName);
+        }
+
+        [TestMethod()]
+        public void DetailsTest()
+        {
+            // Act
+            result = controller.Details(2) as ViewResult;
+            // Assert
+            string viewname = "Details";
+            Assert.IsNotNull(result);
+            Assert.AreEqual(viewname, result.ViewName);
+        }
+
+        [TestMethod()]
+        public void UserProfileTest()
+        {
+            // Act
+            result = controller.UserProfile("tung@dd.com") as ViewResult;
+            // Assert
+            string viewname = "UserProfile";
+            Assert.IsNotNull(result);
+            Assert.AreEqual(viewname, result.ViewName);
+        }
+
+        [TestMethod()]
+        public void CreateTest()
+        {
+            // Act
+            result = controller.Create() as ViewResult;
+            // Assert
+            string viewname = "Create";
+            Assert.IsNotNull(result);
+            Assert.AreEqual(viewname, result.ViewName);
+        }
+
+        [TestMethod()]
+        public void CreateTest1()
+        {
+            string userName = "ddss02@dd.com";
+            //prepare user
+            User user = new User { UserName = userName, Userpassword = "505050", phoneNumber = "505050505050", firstName = "zzz", lastName = "xxx", address = "ccc", picturePath = "/zczxc/zxcxzx" };
+            
+            var authentication = new Mock<IAuthentication>();
+            authentication.Setup(x => x.CreateUserAndAccount(user)).Returns(true);
+            authentication.Setup(x => x.AddUserToRole(user.UserName,"user"));
+            controller = new UserController(authentication.Object);
+
+            db.User.Add(user);
+            db.SaveChanges();
+            // call controller to create it
+            var result = controller.Create(user);
+
+            Assert.IsNotNull(result);
+            //Assert.AreEqual("Details", result.ViewName);
+
+            User resultUser = db.User.FirstOrDefault(x => x.UserName == userName);
+
+            //// remove test user
+            db.User.Remove(user);
+            db.SaveChanges();
+        }
+
+        [TestMethod()]
+        public void EditTest()
+        {
+            // Act
+            result = controller.Edit(2) as ViewResult;
+            // Assert
+            string viewname = "Edit";
+            Assert.IsNotNull(result);
+            Assert.AreEqual(viewname, result.ViewName);
+        }
+
+        [TestMethod()]
+        public void EditTest1()
+        {
+            string userName = "ddss02@dd.com";
+            //prepare user
+            User user = new User { UserName = userName, Userpassword = "505050", phoneNumber = "505050505050", firstName = "zzz", lastName = "xxx", address = "ccc", picturePath = "/zczxc/zxcxzx" };
+            db.User.Add(user);
+            db.SaveChanges();
+
+            user.phoneNumber = "6045216940";
+            var result = controller.Edit(user) as ViewResult;
+            User resultProduct = db.User.FirstOrDefault(x => x.UserId == user.UserId);
+
+            Assert.AreEqual("6045216940", resultProduct.phoneNumber);
+            Assert.IsNotNull(result);
+            db.User.Remove(resultProduct);
+            db.SaveChanges();
+        }
+
+        [TestMethod()]
+        public void DeleteTest()
+        {
+                // Act
+            result = controller.Delete(2) as ViewResult;
+            // Assert
+            string viewname = "Delete";
+            Assert.IsNotNull(result);
+            Assert.AreEqual(viewname, result.ViewName);
+
+            
+        }
+
+        [TestMethod()]
+        public void DeleteConfirmedTest()
+        {
+             string userName = "ddss05@dd.com";
+            //prepare user
+            User user = new User { UserName = userName, Userpassword = "505050", phoneNumber = "505050505050", firstName = "zzz", lastName = "xxx", address = "ccc", picturePath = "/zczxc/zxcxzx" };
+
+
+            var authentication = new Mock<IAuthentication>();
+            authentication.Setup(x => x.CreateUserAndAccount(user)).Returns(true);
+            authentication.Setup(x => x.DeleteUserAccount(user));
+            controller = new UserController(authentication.Object);
+
+            var result = controller.DeleteConfirmed(user.UserId) as ViewResult; ;
+            string viewname = "Index";
+            //string message = "Index";
+            Assert.IsNotNull(result);
+            Assert.AreEqual(viewname, result.ViewName);
+            //Assert.AreEqual(message, result.TempData["msg"]);
+
+        }
+    }
+}

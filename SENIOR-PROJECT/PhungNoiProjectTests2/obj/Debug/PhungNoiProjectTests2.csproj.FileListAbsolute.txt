@@ -1,0 +1,13 @@
+E:\SENIOR-PROJECT\PhungNoiProjectTests2\bin\Debug\PhungNoiProjectTests2.dll.config
+E:\SENIOR-PROJECT\PhungNoiProjectTests2\bin\Debug\PhungNoiProjectTests2.dll
+E:\SENIOR-PROJECT\PhungNoiProjectTests2\bin\Debug\PhungNoiProjectTests2.pdb
+E:\SENIOR-PROJECT\PhungNoiProjectTests2\bin\Debug\EntityFramework.dll
+E:\SENIOR-PROJECT\PhungNoiProjectTests2\bin\Debug\PhungNoiProject.dll
+E:\SENIOR-PROJECT\PhungNoiProjectTests2\bin\Debug\System.Web.Optimization.dll
+E:\SENIOR-PROJECT\PhungNoiProjectTests2\bin\Debug\WebGrease.dll
+E:\SENIOR-PROJECT\PhungNoiProjectTests2\bin\Debug\Antlr3.Runtime.dll
+E:\SENIOR-PROJECT\PhungNoiProjectTests2\bin\Debug\PhungNoiProject.pdb
+E:\SENIOR-PROJECT\PhungNoiProjectTests2\bin\Debug\EntityFramework.xml
+E:\SENIOR-PROJECT\PhungNoiProjectTests2\obj\Debug\PhungNoiProjectTests2.csprojResolveAssemblyReference.cache
+E:\SENIOR-PROJECT\PhungNoiProjectTests2\obj\Debug\PhungNoiProjectTests2.dll
+E:\SENIOR-PROJECT\PhungNoiProjectTests2\obj\Debug\PhungNoiProjectTests2.pdb

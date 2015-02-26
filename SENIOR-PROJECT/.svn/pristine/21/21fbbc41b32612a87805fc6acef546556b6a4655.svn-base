@@ -1,0 +1,66 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using PhungNoiProject.Controllers;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Web.Mvc;
+using System.Web;
+using PhungNoiProject.Models;
+using PhungNoiProject.Filters;
+using WebMatrix.WebData;
+using PhungNoiProject.Services;
+using Moq;
+
+namespace PhungNoiProject.Controllers.Tests
+{
+
+    [TestClass()]
+    public class AccountControllerTests
+    {
+        // Arrange
+        private AccountController controller = new AccountController();
+        private ViewResult result;
+
+        [TestMethod()]
+        [InitializeSimpleMembership]
+        public void LoginTest()
+        {
+            // Act
+            result = controller.Login("/Home/Index") as ViewResult;
+            // Assert
+            string viewname = "Login";
+            Assert.IsNotNull(result);
+            Assert.AreEqual(viewname, result.ViewName);
+
+        }
+
+        [TestMethod()]
+        public void LoginTest1()
+        {
+            // Act
+            LoginModel model = new LoginModel { UserName = "tung@dd.com", Password = "123456"};
+            var authentication = new Mock<IAuthentication>();
+            authentication.Setup(x => x.Login(model)).Returns(true);
+            controller = new AccountController(authentication.Object);
+
+            RedirectToRouteResult result = controller.Login(model, "http://www.google.com") as RedirectToRouteResult;
+            Assert.IsNotNull(result);
+        }
+
+        [TestMethod()]
+        public void LogOffTest()
+        {
+            var authentication = new Mock<IAuthentication>();
+            authentication.Setup(x => x.Logout()).Returns(true);
+            controller = new AccountController(authentication.Object);
+
+            // Act
+            var result = controller.LogOut();
+            // Assert
+            Assert.IsNotNull(result);
+        }
+
+    }
+}

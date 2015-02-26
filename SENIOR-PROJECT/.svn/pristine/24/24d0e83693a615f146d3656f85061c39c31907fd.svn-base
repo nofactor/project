@@ -1,0 +1,159 @@
+﻿@model IList<PhungNoiProject.Models.Product>
+
+@{
+    ViewBag.Title = "Index";
+}
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Bakery Products</h1>
+    </div>
+
+
+    <div class="panel panel-primary">
+
+        <div class="panel-heading">
+            Select products
+             
+                             <div class="input-group custom-search-form" style="width: 220px; float: right; top: -11px;">
+                                 <input id="searchText" type="text" class="form-control" placeholder="Search...">
+                                 <span class="input-group-btn">
+                                     <button class="btn btn-default" type="button" onclick="doSearch()">
+                                         <i class="fa fa-search"></i>
+                                     </button>
+                                     <script>
+                                         function doSearch() {
+                                             var searchq = document.getElementById("searchText").value;
+                                             if (searchq != null && searchq.length > 0) {
+                                                 window.location = "/Home/Product?q=" + searchq;
+                                             }
+                                         }
+                                         var q = getQueryString()["q"];
+                                         if (q != null)
+                                             document.getElementById("searchText").value = q;
+                                     </script>
+                                 </span>
+                             </div>
+
+        </div>
+        <!-- /.panel-heading -->
+        <div class="panel-body">
+            <div class="table-responsive">
+                @using (Html.BeginForm())
+                {
+                    @Html.ValidationSummary(true)
+                    @Html.AntiForgeryToken()
+                    <form role="form">
+                        <table class="table">
+
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Picture</th>
+                                    <th>Name</th>
+                                    <th>Price</th>
+                                    <th>Category</th>
+                                    
+                                    @if (Request.IsAuthenticated)
+                                    {
+                                        <th>Quantity</th>
+                                    }
+
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                @for (int i = 0; i < Model.Count(); i++)
+                                {
+                                    <tr>
+                                        @Html.HiddenFor(model => model[i].id)
+                                        <td>@Html.DisplayFor(model => model[i].id)</td>
+                                        <td>
+                                            <img src="..@Html.ValueFor(model => model[i].picture)" height="100"; width="150"/>
+                                        </td>
+                                        <td>@Html.DisplayFor(model => model[i].name)</td>
+                                        <td>@Html.DisplayFor(model => model[i].price)</td>
+                                        <td>@Html.DisplayFor(model => model[i].category)</td>
+                                        
+                                        @if (Request.IsAuthenticated)
+                                        {
+                                            <td>@Html.TextBoxFor(model => model[i].quantity, new { @type = "number", @min = "0" })</td>
+                                        }
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        <div id="orderList"></div>
+                        @if (Request.IsAuthenticated)
+                        {
+                            <input class="btn btn-primary" type="submit" value="Add to Cart" />
+                        }
+                    </form>
+                }
+            </div>
+        </div>
+        @*<div class="row">
+            <div class="col-sm-6">
+                <div class="dataTables_info" id="dataTables-example_info" role="alert" aria-live="polite" aria-relevant="all">Showing 1 to 10 of 57 entries</div>
+            </div>
+            <div class="col-sm-6">
+                <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">
+                    <ul class="pagination">
+                        <li class="paginate_button previous disabled" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous"><a href="#">Previous</a></li>
+                        <li class="paginate_button active" aria-controls="dataTables-example" tabindex="0"><a href="#">1</a></li>
+                        <li class="paginate_button " aria-controls="dataTables-example" tabindex="0"><a href="#">2</a></li>
+                        <li class="paginate_button " aria-controls="dataTables-example" tabindex="0"><a href="#">3</a></li>
+                        <li class="paginate_button " aria-controls="dataTables-example" tabindex="0"><a href="#">4</a></li>
+                        <li class="paginate_button " aria-controls="dataTables-example" tabindex="0"><a href="#">5</a></li>
+                        <li class="paginate_button " aria-controls="dataTables-example" tabindex="0"><a href="#">6</a></li>
+                        <li class="paginate_button next" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next"><a href="#">Next</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>*@
+
+        <script>
+            var items;
+            var hasValue = false;
+            function orderItem(id, name, qty) {
+                this.id = id;
+                this.name = name;
+                this.qty = qty;
+            }
+
+            function addItem(id, name) {
+                if (document.getElementById("Qty_" + id).value > 0) {
+                    if (!hasValue) {
+                        var item = new orderItem(id, name, parseInt(document.getElementById("Qty_" + id).value));
+                        items = new Array(item);
+                        hasValue = true;
+                    } else {
+                        hasValue = false;
+                        var i = 0;
+                        for (; i < items.length; i++) {
+                            if (items[i].id == id) {
+                                items[i].qty += parseInt(document.getElementById("Qty_" + id).value);
+                                hasValue = true;
+                            }
+                        }
+                        if (!hasValue) {
+                            var item = new orderItem(id, name, parseInt((document.getElementById("Qty_" + id).value)));
+                            items[i] = item;
+                            hasValue = true;
+                        }
+                    }
+                    var orderList = document.getElementById("orderList");
+                    orderList.innerText = "";
+                    for (var i = 0; i < items.length; i++) {
+                        orderList.innerText += items[i].id + ":" + items[i].name + ":" + items[i].qty + "\r\n";
+                    }
+                }
+            }
+        </script>
+
+
+        <!-- /.table-responsive -->
+    </div>
+
+    <!-- /.panel-body -->
+</div>

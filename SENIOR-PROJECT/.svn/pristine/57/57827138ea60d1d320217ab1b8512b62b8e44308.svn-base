@@ -1,0 +1,96 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using PhungNoiProject.Controllers;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Web.Mvc;
+namespace PhungNoiProject.Controllers.Tests
+{
+   
+    [TestClass()]
+    public class HomeControllerTests
+    {
+        // Arrange
+        private HomeController controller = new HomeController();
+        private ViewResult result;
+
+        [TestMethod()]
+        public void IndexTest()
+        {
+             // Act
+            result = controller.Index() as ViewResult;
+            // Assert
+            string viewname = "Index";
+            Assert.IsNotNull(result);
+            Assert.AreEqual(viewname, result.ViewName);
+        }
+
+        [TestMethod()]
+        public void CartTest()
+        { 
+            // Act
+            result = controller.Cart() as ViewResult;
+            // Assert
+            string viewname = "Cart";
+            Assert.IsNotNull(result);
+            Assert.AreEqual(viewname, result.ViewName);
+        }
+
+        [TestMethod()]
+        public void ProductTest()
+        {
+            // Act
+            result = controller.Product() as ViewResult;
+            // Assert
+            string viewname = "Product";
+            Assert.IsNotNull(result);
+            Assert.AreEqual(viewname, result.ViewName);
+        }
+
+        [TestMethod()]
+        public void ProductTest1()
+        {
+            // Act
+            result = controller.Product() as ViewResult;
+            // Assert
+            string viewname = "Product";
+            Assert.IsNotNull(result);
+            Assert.AreEqual(viewname, result.ViewName);
+        }
+
+        [TestMethod()]
+        public void HistoryTest()
+        {
+            // Act
+            result = controller.History() as ViewResult;
+            // Assert
+            string viewname = "History";
+            Assert.IsNotNull(result);
+            Assert.AreEqual(viewname, result.ViewName);
+        }
+
+        [TestMethod()]
+        public void AboutTest()
+        {
+            // Act
+            result = controller.About() as ViewResult;
+            // Assert
+            string viewname = "About";
+            Assert.IsNotNull(result);
+            Assert.AreEqual(viewname, result.ViewName);
+        }
+
+        [TestMethod()]
+        public void ContactTest()
+        {
+            // Act
+            result = controller.Contact() as ViewResult;
+            // Assert
+            string viewname = "Contact";
+            Assert.IsNotNull(result);
+            Assert.AreEqual(viewname, result.ViewName);
+        }
+    }
+}

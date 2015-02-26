@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="PhungNoiProject.Models.phungnoiDBEntities">
+    <Position X="4.5" Y="4.25" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAEDAAAAAAAABAAAAAAAAAAAEAAAAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>Models\phungnoiDB.Context.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PhungNoiProject.Models.Product" Collapsed="true">
+    <Position X="1" Y="2.5" Width="1.5" />
+    <InheritanceLine Type="System.Object" FixedToPoint="true">
+      <Path>
+        <Point X="3.75" Y="2.062" />
+        <Point X="3.75" Y="2.812" />
+        <Point X="2.5" Y="2.812" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAIAAAAAAAAAAAAAAAAAEAACAQAAIAAAAEgA=</HashCode>
+      <FileName>Models\Product.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PhungNoiProject.Models.User" Collapsed="true">
+    <Position X="1" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAABABCAAAAABgAgAAEIAAAAAAQAACQAAAAA=</HashCode>
+      <FileName>Models\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PhungNoiProject.Models.webpages_Roles" Collapsed="true">
+    <Position X="1" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>Models\webpages_Roles.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="System.Object" Collapsed="true">
+    <Position X="3" Y="1.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="PhungNoiProject.Models.LocalPasswordModel" Collapsed="true">
+    <Position X="1" Y="4.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAABAAAAAAAEAAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>Models\AccountModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PhungNoiProject.Models.LoginModel" Collapsed="true">
+    <Position X="1" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAQAAAAAgAAA=</HashCode>
+      <FileName>Models\AccountModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

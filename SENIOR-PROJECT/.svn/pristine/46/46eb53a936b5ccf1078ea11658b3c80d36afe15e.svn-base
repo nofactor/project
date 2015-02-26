@@ -1,0 +1,85 @@
+﻿@model List<PhungNoiProject.Models.Recipe>
+
+
+@{
+    ViewBag.Title = "EditRecipe";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">@ViewBag.Title</h1>
+    </div>
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            Edit your Recipe
+        </div>
+        <div class="panel-body">
+
+            @using (Html.BeginForm("SaveRecipe", "Recipe", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+               
+                @Html.ValidationSummary(true)
+                 @Html.AntiForgeryToken()
+                <form role="form">
+
+                    <div class="table-responsive">
+
+
+
+                        <div class="form-group">
+                            <img src=" @Html.ValueFor(model => Model[1].Product.productPicture)" height="100"; width="150"/>
+
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <td>@Html.ActionLink("Add Ingredient", "Insert", new {id = Model[1].productID})</td>
+                                    </tr>
+                                    <tr>
+
+                                        <th>Picture</th>
+                                        <th>Name</th>
+
+                                        <th>
+                                            <label>@Html.DisplayName(" Quantity"):&nbsp</label></th>
+                                        <th>Units ID</th>
+                                        <th>
+                                            <label>@Html.DisplayName(" Unit"):&nbsp</label></th>
+                                    </tr>
+
+
+                                </thead>
+
+                                <tbody>
+
+                                    @Html.EditorFor(model => Model);
+                                   
+                                </tbody>
+
+                            </table>
+
+
+                            <input type="submit" class="btn btn-primary" value="Save">
+                        </div>
+
+
+
+                        |    @Html.ActionLink("Back to List", "Index", "Recipe")
+
+
+
+
+                    </div>
+
+                </form>  }
+        </div>
+
+    </div>
+
+</div>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

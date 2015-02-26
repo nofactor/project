@@ -1,0 +1,43 @@
+﻿@model PhungNoiProject.Models.Order
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Order</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.UserProfile.UserName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.UserProfile.UserName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.orderDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.orderDate)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.dueDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.dueDate)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.orderStatus)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.orderStatus)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

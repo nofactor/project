@@ -1,0 +1,430 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="phungnoiDBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="phungnoiDBModelStoreContainer">
+          <EntitySet Name="Ingredient" EntityType="phungnoiDBModel.Store.Ingredient" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="OderDetail" EntityType="phungnoiDBModel.Store.OderDetail" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Order" EntityType="phungnoiDBModel.Store.Order" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Product" EntityType="phungnoiDBModel.Store.Product" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ProductContain" EntityType="phungnoiDBModel.Store.ProductContain" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserProfile" EntityType="phungnoiDBModel.Store.UserProfile" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="webpages_Roles" EntityType="phungnoiDBModel.Store.webpages_Roles" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="webpages_UsersInRoles" EntityType="phungnoiDBModel.Store.webpages_UsersInRoles" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_OderDetail_Order" Association="phungnoiDBModel.Store.FK_OderDetail_Order">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="OderDetail" EntitySet="OderDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OderDetail_Product" Association="phungnoiDBModel.Store.FK_OderDetail_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="OderDetail" EntitySet="OderDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_User" Association="phungnoiDBModel.Store.FK_Order_User">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="fk_RoleId" Association="phungnoiDBModel.Store.fk_RoleId">
+            <End Role="webpages_Roles" EntitySet="webpages_Roles" />
+            <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
+          </AssociationSet>
+          <AssociationSet Name="fk_UserId" Association="phungnoiDBModel.Store.fk_UserId">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Ingredient">
+          <Key>
+            <PropertyRef Name="IngreID" />
+          </Key>
+          <Property Name="IngreID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Size" Type="nvarchar" MaxLength="50" />
+          <Property Name="Type" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="OderDetail">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="orderId" Type="int" Nullable="false" />
+          <Property Name="productId" Type="int" Nullable="false" />
+          <Property Name="quantity" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="orderDate" Type="datetime" Nullable="false" />
+          <Property Name="dueDate" Type="datetime" Nullable="false" />
+          <Property Name="orderStatus" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="price" Type="float" Nullable="false" />
+          <Property Name="category" Type="nvarchar" MaxLength="50" />
+          <Property Name="picture" Type="nvarchar" MaxLength="200" />
+          <Property Name="info" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="ProductContain">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="productID" Type="nvarchar" MaxLength="50" />
+          <Property Name="ingredID" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="UserProfile">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="nvarchar" Nullable="false" MaxLength="15" />
+          <Property Name="firstName" Type="nchar" MaxLength="50" />
+          <Property Name="lastName" Type="nchar" MaxLength="50" />
+          <Property Name="phoneNumber" Type="nchar" MaxLength="20" />
+          <Property Name="address" Type="nchar" MaxLength="400" />
+          <Property Name="picturePath" Type="nchar" MaxLength="200" />
+          <Property Name="createDate" Type="datetime" />
+          <Property Name="lastSignInDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="webpages_Roles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="nvarchar" Nullable="false" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="webpages_UsersInRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_OderDetail_Order">
+          <End Role="Order" Type="phungnoiDBModel.Store.Order" Multiplicity="1" />
+          <End Role="OderDetail" Type="phungnoiDBModel.Store.OderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="OderDetail">
+              <PropertyRef Name="orderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OderDetail_Product">
+          <End Role="Product" Type="phungnoiDBModel.Store.Product" Multiplicity="1" />
+          <End Role="OderDetail" Type="phungnoiDBModel.Store.OderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="OderDetail">
+              <PropertyRef Name="productId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_User">
+          <End Role="UserProfile" Type="phungnoiDBModel.Store.UserProfile" Multiplicity="1" />
+          <End Role="Order" Type="phungnoiDBModel.Store.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_RoleId">
+          <End Role="webpages_Roles" Type="phungnoiDBModel.Store.webpages_Roles" Multiplicity="1" />
+          <End Role="webpages_UsersInRoles" Type="phungnoiDBModel.Store.webpages_UsersInRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="webpages_Roles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="webpages_UsersInRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_UserId">
+          <End Role="UserProfile" Type="phungnoiDBModel.Store.UserProfile" Multiplicity="1" />
+          <End Role="webpages_UsersInRoles" Type="phungnoiDBModel.Store.webpages_UsersInRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="webpages_UsersInRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="phungnoiDBModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="phungnoiDBEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Ingredient" EntityType="phungnoiDBModel.Ingredient" />
+          <EntitySet Name="OderDetail" EntityType="phungnoiDBModel.OderDetail" />
+          <EntitySet Name="Order" EntityType="phungnoiDBModel.Order" />
+          <EntitySet Name="Product" EntityType="phungnoiDBModel.Product" />
+          <EntitySet Name="ProductContain" EntityType="phungnoiDBModel.ProductContain" />
+          <EntitySet Name="UserProfile" EntityType="phungnoiDBModel.UserProfile" />
+          <EntitySet Name="webpages_Roles" EntityType="phungnoiDBModel.webpages_Roles" />
+          <AssociationSet Name="FK_OderDetail_Order" Association="phungnoiDBModel.FK_OderDetail_Order">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="OderDetail" EntitySet="OderDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OderDetail_Product" Association="phungnoiDBModel.FK_OderDetail_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="OderDetail" EntitySet="OderDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_User" Association="phungnoiDBModel.FK_Order_User">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="webpages_UsersInRoles" Association="phungnoiDBModel.webpages_UsersInRoles">
+            <End Role="webpages_Roles" EntitySet="webpages_Roles" />
+            <End Role="UserProfile" EntitySet="UserProfile" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Ingredient">
+          <Key>
+            <PropertyRef Name="IngreID" />
+          </Key>
+          <Property Type="Int32" Name="IngreID" Nullable="false" />
+          <Property Type="String" Name="Name" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Size" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Type" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="OderDetail">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="orderId" Nullable="false" />
+          <Property Type="Int32" Name="productId" Nullable="false" />
+          <Property Type="Int32" Name="quantity" Nullable="false" />
+          <NavigationProperty Name="Order" Relationship="phungnoiDBModel.FK_OderDetail_Order" FromRole="OderDetail" ToRole="Order" />
+          <NavigationProperty Name="Product" Relationship="phungnoiDBModel.FK_OderDetail_Product" FromRole="OderDetail" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="user_id" Nullable="false" />
+          <Property Type="DateTime" Name="orderDate" Nullable="false" Precision="3" />
+          <Property Type="DateTime" Name="dueDate" Nullable="false" Precision="3" />
+          <Property Type="Int32" Name="orderStatus" Nullable="false" />
+          <NavigationProperty Name="OderDetail" Relationship="phungnoiDBModel.FK_OderDetail_Order" FromRole="Order" ToRole="OderDetail" />
+          <NavigationProperty Name="UserProfile" Relationship="phungnoiDBModel.FK_Order_User" FromRole="Order" ToRole="UserProfile" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Double" Name="price" Nullable="false" />
+          <Property Type="String" Name="category" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="picture" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="info" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="OderDetail" Relationship="phungnoiDBModel.FK_OderDetail_Product" FromRole="Product" ToRole="OderDetail" />
+        </EntityType>
+        <EntityType Name="ProductContain">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="String" Name="productID" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ingredID" MaxLength="10" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="UserProfile">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Type="Int32" Name="UserId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="firstName" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Type="String" Name="lastName" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Type="String" Name="phoneNumber" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Type="String" Name="address" MaxLength="400" FixedLength="true" Unicode="true" />
+          <Property Type="String" Name="picturePath" MaxLength="200" FixedLength="true" Unicode="true" />
+          <Property Type="DateTime" Name="createDate" Precision="3" />
+          <Property Type="DateTime" Name="lastSignInDate" Precision="3" />
+          <NavigationProperty Name="Order" Relationship="phungnoiDBModel.FK_Order_User" FromRole="UserProfile" ToRole="Order" />
+          <NavigationProperty Name="webpages_Roles" Relationship="phungnoiDBModel.webpages_UsersInRoles" FromRole="UserProfile" ToRole="webpages_Roles" />
+        </EntityType>
+        <EntityType Name="webpages_Roles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Type="Int32" Name="RoleId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="RoleName" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UserProfile" Relationship="phungnoiDBModel.webpages_UsersInRoles" FromRole="webpages_Roles" ToRole="UserProfile" />
+        </EntityType>
+        <Association Name="FK_OderDetail_Order">
+          <End Type="phungnoiDBModel.Order" Role="Order" Multiplicity="1" />
+          <End Type="phungnoiDBModel.OderDetail" Role="OderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="OderDetail">
+              <PropertyRef Name="orderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OderDetail_Product">
+          <End Type="phungnoiDBModel.Product" Role="Product" Multiplicity="1" />
+          <End Type="phungnoiDBModel.OderDetail" Role="OderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="OderDetail">
+              <PropertyRef Name="productId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_User">
+          <End Type="phungnoiDBModel.UserProfile" Role="UserProfile" Multiplicity="1" />
+          <End Type="phungnoiDBModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="webpages_UsersInRoles">
+          <End Type="phungnoiDBModel.webpages_Roles" Role="webpages_Roles" Multiplicity="*" />
+          <End Type="phungnoiDBModel.UserProfile" Role="UserProfile" Multiplicity="*" />
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="phungnoiDBModelStoreContainer" CdmEntityContainer="phungnoiDBEntities">
+          <EntitySetMapping Name="Ingredient">
+            <EntityTypeMapping TypeName="phungnoiDBModel.Ingredient">
+              <MappingFragment StoreEntitySet="Ingredient">
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Size" ColumnName="Size" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="IngreID" ColumnName="IngreID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OderDetail">
+            <EntityTypeMapping TypeName="phungnoiDBModel.OderDetail">
+              <MappingFragment StoreEntitySet="OderDetail">
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="productId" ColumnName="productId" />
+                <ScalarProperty Name="orderId" ColumnName="orderId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Order">
+            <EntityTypeMapping TypeName="phungnoiDBModel.Order">
+              <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="orderStatus" ColumnName="orderStatus" />
+                <ScalarProperty Name="dueDate" ColumnName="dueDate" />
+                <ScalarProperty Name="orderDate" ColumnName="orderDate" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Product">
+            <EntityTypeMapping TypeName="phungnoiDBModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="info" ColumnName="info" />
+                <ScalarProperty Name="picture" ColumnName="picture" />
+                <ScalarProperty Name="category" ColumnName="category" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductContain">
+            <EntityTypeMapping TypeName="phungnoiDBModel.ProductContain">
+              <MappingFragment StoreEntitySet="ProductContain">
+                <ScalarProperty Name="ingredID" ColumnName="ingredID" />
+                <ScalarProperty Name="productID" ColumnName="productID" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserProfile">
+            <EntityTypeMapping TypeName="phungnoiDBModel.UserProfile">
+              <MappingFragment StoreEntitySet="UserProfile">
+                <ScalarProperty Name="lastSignInDate" ColumnName="lastSignInDate" />
+                <ScalarProperty Name="createDate" ColumnName="createDate" />
+                <ScalarProperty Name="picturePath" ColumnName="picturePath" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="phoneNumber" ColumnName="phoneNumber" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="webpages_Roles">
+            <EntityTypeMapping TypeName="phungnoiDBModel.webpages_Roles">
+              <MappingFragment StoreEntitySet="webpages_Roles">
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="webpages_UsersInRoles" TypeName="phungnoiDBModel.webpages_UsersInRoles" StoreEntitySet="webpages_UsersInRoles">
+            <EndProperty Name="UserProfile">
+              <ScalarProperty Name="UserId" ColumnName="UserId" />
+            </EndProperty>
+            <EndProperty Name="webpages_Roles">
+              <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

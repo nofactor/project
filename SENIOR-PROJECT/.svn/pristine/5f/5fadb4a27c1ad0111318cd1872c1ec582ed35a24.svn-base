@@ -1,0 +1,135 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using PhungNoiProject.Controllers;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.CSharp.RuntimeBinder;
+using System.Web.Mvc;
+using PhungNoiProject.Models;
+namespace PhungNoiProject.Controllers.Tests
+{
+    [TestClass()]
+    public class ProductControllerTests
+    {
+        // Arrange
+        private ProductController controller = new ProductController();
+        private ViewResult result;
+        private phungnoiDBEntities db = new phungnoiDBEntities();
+
+        [TestMethod()]
+        [DeploymentItem("web.config")]
+        public void IndexTest()
+        {
+            // Act
+            result = controller.Index() as ViewResult;
+            // Assert
+            string viewname = "Index";
+            Assert.IsNotNull(result);
+            Assert.AreEqual(viewname, result.ViewName);
+        }
+
+        [TestMethod()]
+        public void DetailsTest()
+        {
+
+            // Act
+            result = controller.Details(1) as ViewResult;
+            // Assert
+            string viewname = "Details";
+            Assert.IsNotNull(result);
+            Assert.AreEqual(viewname, result.ViewName);
+        }
+
+        [TestMethod()]
+        public void CreateTest()
+        {
+            // Act
+            result = controller.Create() as ViewResult;
+            // Assert
+            string viewname = "Create";
+            Assert.IsNotNull(result);
+            Assert.AreEqual(viewname, result.ViewName);
+        }
+
+        [TestMethod()]
+        public void CreateTest1()
+        {
+            //prepare 
+            string name1 = "vava";
+            Product product = new Product { category = "ada", info = "sdf", name = name1, picture = "/sdf/sdfs", price = 500 };
+
+            // call controller to create it
+            var result = controller.Create(product);
+
+            Assert.IsNotNull(result);
+            //Assert.AreEqual("Details", result.ViewName);
+            Product resultProduct = db.Product.FirstOrDefault(x => x.name == name1);
+
+            //// remove test 
+            db.Product.Remove(resultProduct);
+            db.SaveChanges();
+        }
+
+        [TestMethod()]
+        public void EditTest()
+        {
+            // Act
+            result = controller.Edit(1) as ViewResult;
+            // Assert
+            string viewname = "Edit";
+            Assert.IsNotNull(result);
+            Assert.AreEqual(viewname, result.ViewName);
+        }
+
+        [TestMethod()]
+        public void EditTest1()
+        {
+            string name1 = "vava45001";
+            Product product = new Product { category = "ada", info = "sdf", name = name1, picture = "/sdf/sdfs", price = 500 };
+            db.Product.Add(product);
+            db.SaveChanges();
+
+            product.price = 600;
+            var result = controller.Edit(product) as ViewResult;
+            Product resultProduct = db.Product.FirstOrDefault(x => x.id == product.id);
+
+            Assert.AreEqual(600, resultProduct.price);
+            Assert.IsNotNull(result);
+            db.Product.Remove(resultProduct);
+            db.SaveChanges();
+
+        }
+
+        [TestMethod()]
+        public void DeleteTest()
+        {
+            // Act
+            result = controller.Delete(1) as ViewResult;
+            // Assert
+            string viewname = "Delete";
+            Assert.IsNotNull(result);
+            Assert.AreEqual(viewname, result.ViewName);
+        }
+
+        [TestMethod()]
+        public void DeleteConfirmedTest()
+        {
+            //prepare 
+            string name1 = "vava01";
+            Product product = new Product { category = "ada", info = "sdf", name = name1, picture = "/sdf/sdfs", price = 500 };
+            db.Product.Add(product);
+            db.SaveChanges();
+            // call controller to create it
+            var result = controller.DeleteConfirmed(product.id) as ViewResult;
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual("Index", result.ViewName);
+            //Assert.AreEqual("Index", result.TempData["msg"]);
+
+            Product resultProduct = db.Product.FirstOrDefault(x => x.id == product.id);
+            Assert.IsNull(resultProduct);
+        }
+    }
+}

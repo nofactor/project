@@ -1,0 +1,189 @@
+﻿@{
+    ViewBag.Title = "Cart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    IList<PhungNoiProject.Models.Product> cart = (IList<PhungNoiProject.Models.Product>)Session["Cart"];
+    @model PhungNoiProject.Models.Order
+    ViewBag.Cart = cart;
+}
+<script>
+    function calculateRow(rowNumber, quantity) {
+        //alert(rowNumber + " " + quantity);
+        var price = document.getElementById("price" + rowNumber);
+        var dcprice = document.getElementById("dcprice" + rowNumber);
+        var totalprice = document.getElementById("totalprice" + rowNumber);
+        
+        
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("SetCartItem")',
+            data: ({
+                rownumber:rowNumber-1,
+                quantity:quantity
+            })
+        });
+
+        totalprice.innerText = (parseFloat(price.innerText) - parseFloat(dcprice.innerText)) * parseFloat(quantity);
+
+        //calculate sum 
+        var runningNumber = 1;
+        var quantRow = document.getElementById("quant" + runningNumber);
+        var sumQuant = 0;
+        var sumTotal = 0;
+
+        while (quantRow != null) 
+        {
+            sumQuant += parseFloat(quantRow.value);
+
+            var totalRow = document.getElementById("totalprice" + runningNumber);
+            sumTotal += parseFloat(totalRow.innerText);
+
+            quantRow = document.getElementById("quant" + ++runningNumber);
+        }
+
+        sumTotalCell = document.getElementById("sumTotal");
+        sumQuantCell = document.getElementById("sumQuant");
+
+        sumTotalCell.innerText = sumTotal;
+        sumQuantCell.innerText = sumQuant;
+    }
+</script>
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Current Order</h1>
+    </div>
+
+
+    <div class="panel panel-primary">
+
+        <div class="panel-heading">
+            Cart
+         
+              
+ 
+        </div>
+        <!-- /.panel-heading -->
+        <div class="panel-body">
+            <div class="table-responsive">
+
+                @using (Html.BeginForm())
+                {
+                    @Html.ValidationSummary(true)
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.orderID);
+                    <table class="table">
+                        <thead>
+
+                            <tr>
+                                <th>#</th>
+                                <th>Picture</th>
+                                <th>Product Name</th>
+                                <th>Quantity</th>
+                                <th>Unit Price(Baht)</th>
+                                <th>Unit Discount(Baht)</th>
+                                <th>Total </th>
+
+
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            @{
+                    double sumDiscount = 0;
+                    double sumTotal = 0;
+                    double sumPrice = 0;
+                    double sumQun = 0;
+                    int runningNumber = 0;
+
+                    if (cart != null && cart.Count > 0)
+                    {
+
+
+
+                        foreach (var item in cart)
+                        {
+
+
+                            var quantity = item.quantity;
+                            var price = item.price;
+                            double dsCountPrice = item.price * 0.7;
+                            double totalPrice = dsCountPrice * quantity;
+
+                            sumDiscount += (price - dsCountPrice) * quantity;
+                            sumTotal += totalPrice;
+                            sumPrice += double.Parse("" + price);
+                            sumQun += double.Parse("" + quantity);
+                            
+                            
+                                <tr>
+
+                                    <td>@(++runningNumber)</td>
+                                    <td>
+                                        <img src="@Html.ValueFor(model => item.productPicture)" height="100"; width="150"/></td>
+
+                                    <td>@Html.DisplayFor(model => item.productName)</td>
+                                <td>@Html.TextBoxFor(model => item.quantity, new { @min = 0, @type = "number", @onchange = "calculateRow(" + runningNumber + ",this.value);", id = "quant" + runningNumber })</td>
+                                    <td id=@("price" + runningNumber)>@price</td>
+                                    <td id=@("dcprice" + runningNumber)>@(price - dsCountPrice)</td>
+                                    <td id=@("totalprice" + runningNumber)>@(item.quantity * dsCountPrice)</td>
+
+                                </tr>
+                              
+                         
+                        }
+
+
+                    }
+                           
+
+
+                                <tr>
+
+                                    <th></th>
+                                    <th></th>
+                                    <th>Total</th>
+                                    <th id="sumQuant" style="color: green">@sumQun</th>
+                                    <th style="color: green">@sumPrice</th>
+                                    <th style="color: green"></th>
+                                    <th id="sumTotal" style="color: red">@sumTotal</th>
+
+                                </tr>
+                         
+                            
+                            }
+                        </tbody>
+
+
+                    </table>
+
+
+
+             
+                  
+                    <div class="editor-field">
+
+                        @Html.EditorFor(model => model.deliveryDate)
+                        @Html.ValidationMessageFor(model => model.deliveryDate)
+                        @Html.Label("Deliver Date")
+                    </div>
+                     <div class="editor-field">
+                         @Html.EditorFor(model => model.comment)
+                        @Html.Label("Comment")
+                         </div>
+                    if(DateTime.Now.Hour < 12 && DateTime.Now.Hour > 8){
+                     <input type="submit" class="btn btn-primary" value="Submit" name="submit" />
+                    }
+                    <input type="submit" class="btn btn-primary" value="Save" name="submit" />
+
+                    
+                    
+                }
+            </div>
+        </div>
+    </div>
+    @Html.ActionLink("Back to products", "Product", "Home")
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
