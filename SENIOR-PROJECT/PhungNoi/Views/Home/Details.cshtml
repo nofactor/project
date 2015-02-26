@@ -1,0 +1,111 @@
+﻿@model PhungNoiProject.Models.Order
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">@ViewBag.Title</h1>
+    </div>
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            Detail of your order
+        </div>
+        <div class="panel-body">
+
+            @using (Html.BeginForm())
+            {
+                @Html.ValidationSummary(true)
+
+                <div class="col-lg-5">
+                    <form role="form">
+
+                        <div class="form-group">
+                            <label>User Name :</label>
+                            @Html.DisplayFor(model => model.Member.firstName)
+                        </div>
+
+                        <div class="form-group">
+                            <label>Order Date :</label>
+
+                            @Html.DisplayFor(model => model.orderDate)
+                        </div>
+
+                        <div class="form-group">
+                            <label>Daliver Date :</label>
+
+                            @Html.DisplayFor(model => model.deliveryDate)
+                        </div>
+                            <table class="table">
+                                        <thead>
+
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Picture</th>
+                                                <th>Name</th>
+                                                <th>Quantity</th>
+                                               
+
+
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+
+
+                                            @if (Model.OderDetail != null && Model.OderDetail.Count > 0)
+                                            {
+
+
+
+                                                foreach (var item in Model.OderDetail)
+                                                {
+
+                                                <tr>
+
+                                                    <td>@Html.DisplayFor(model => item.productID)</td>
+                                                    <td>
+                                                        <img src="@Html.ValueFor(model => item.Product.productPicture)" height="50"; width="75"/></td>
+
+                                                    <td>@Html.DisplayFor(model => item.Product.productName)</td>
+                                                    <td>@Html.DisplayFor(model => item.productQuantity)</td>
+
+
+                                                </tr>
+                              
+                         
+                                                }
+
+
+                                            }
+                                         
+                                        </tbody>
+
+
+                                    </table>
+
+
+
+                        <div>
+                            @Html.ActionLink("Edit", "Cart", new { id = 0, orderId = Model.orderID }) |
+                            @Html.ActionLink("Back to List", "History")
+                        </div>
+
+
+                    </form>
+                </div>
+
+            }
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+

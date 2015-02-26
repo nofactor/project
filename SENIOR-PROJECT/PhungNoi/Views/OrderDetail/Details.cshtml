@@ -1,0 +1,36 @@
+﻿@model PhungNoiProject.Models.OderDetail
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>OderDetail</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Order.id)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Order.id)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Product.name)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Product.name)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.quantity)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.quantity)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

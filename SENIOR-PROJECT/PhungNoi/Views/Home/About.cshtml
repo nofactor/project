@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "About";
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title.</h1>
+    <h2>@ViewBag.Message</h2>
+</hgroup>
+
+<article>
+    <p>
+        College of Arts, Media and Technology.
+    </p>
+
+    <p>
+        Web-based Ordering & Ingredient Estimating for Bakery Manufacturer
+    </p>
+
+    <p>
+        Nontra Mahachanont 542115026
+        Parinya Panyanak 542115034
+    </p>
+</article>
+
+<aside>
+    <h3>Additional Menu</h3>
+    <ul>
+        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+        <li>@Html.ActionLink("About", "About", "Home")</li>
+        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+    </ul>
+</aside>

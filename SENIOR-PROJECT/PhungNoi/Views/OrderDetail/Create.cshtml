@@ -1,0 +1,51 @@
+﻿@model PhungNoiProject.Models.OderDetail
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>OderDetail</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.orderId, "Order")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("orderId", String.Empty)
+            @Html.ValidationMessageFor(model => model.orderId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.productId, "Product")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("productId", String.Empty)
+            @Html.ValidationMessageFor(model => model.productId)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.quantity)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.quantity)
+            @Html.ValidationMessageFor(model => model.quantity)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

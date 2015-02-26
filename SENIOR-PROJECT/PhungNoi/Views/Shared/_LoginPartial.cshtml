@@ -1,0 +1,25 @@
+﻿@if (Request.IsAuthenticated)
+{
+    <ul class="dropdown-menu dropdown-user">
+
+        @using (Html.BeginForm("LogOut", "Account", FormMethod.Post, new { id = "logoutForm" }))
+        {
+            @Html.AntiForgeryToken()
+            
+        }
+        <li><a class="fa fa-user fa-fw" href="/User/Member/@WebUtility.UrlEncode(HttpContext.Current.User.Identity.Name.Replace(".","|"))">Profile</a>
+        <li class="divider"></li>
+
+        <li><a class="fa fa-sign-out fa-fw" href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
+        </li>
+    </ul>
+}
+else
+{
+    <ul class="dropdown-menu dropdown-user">
+        <li>
+            @Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { @class = "fa fa-user fa-fw" })
+        </li>
+    </ul>
+    
+}
