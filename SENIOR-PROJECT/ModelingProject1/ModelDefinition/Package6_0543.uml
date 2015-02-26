@@ -1,0 +1,305 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+  dslVersion="1.0.0.0"
+  Id="c4cef47e-8998-4adb-b633-21c68173d042"
+  name="Models"
+  visibility="Private" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <referencesInternal>
+    <reference
+      Id="6b7dd634-73c9-45a0-a6a5-ea515d766993"
+      handle="viewcode://./CodeSchema_Namespace?Namespace%3DPhungNoiProject.Models"
+      tag="ViewCode" />
+  </referencesInternal>
+  <packagedElements>
+    <packageHasNamedElement>
+      <class
+        Id="0d574a5a-2653-466c-b6b9-1c39ddd236a9"
+        name="LoginModel"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="307554a3-444c-4952-b8d6-83826f327b3a"
+            handle="viewcode://./CodeSchema_Class?Assembly%3Dfile:%2F%2F%2FE:%2FSENIOR-PROJECT%2FPhungNoi%2Fbin%2FPhungNoiProject.dll Namespace%3DPhungNoiProject.Models Type%3DLoginModel"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="c6799612-1577-4b33-9945-54c16e2f6c01"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="7ec6f438-1405-438f-91f6-f9f38bf97ce8">
+                <propertyInstance
+                  Id="e014c334-692c-4b54-8a5c-3eba0d3f09cd"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="fad343f5-2c2d-4e0c-8bbf-cccc52519a4b">
+                <propertyInstance
+                  Id="232c8b11-3536-42e2-a775-a3751150e84a"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="47aee0a5-f08b-480e-b40d-a8332a19a381">
+                <propertyInstance
+                  Id="b4ba5de9-03c6-4a44-8cc4-9f6dfbcfd267"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="0849c743-e8b8-4ca7-b704-e3a2f0f847b1">
+                <propertyInstance
+                  Id="ffa02eac-e950-4558-b6c4-d6e230a43cf6"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="8aa16edc-b231-4db2-9f74-a248d92520b9">
+                <propertyInstance
+                  Id="693da3e8-6e12-469f-b351-f6682b4d6786"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="5cbb820a-2966-44a2-b9cd-09b253100e1b"
+        name="LocalPasswordModel"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="fad7e925-5ec8-465d-8ffb-a18c2c56f90a"
+            handle="viewcode://./CodeSchema_Class?Assembly%3Dfile:%2F%2F%2FE:%2FSENIOR-PROJECT%2FPhungNoi%2Fbin%2FPhungNoiProject.dll Namespace%3DPhungNoiProject.Models Type%3DLocalPasswordModel"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="441a8b51-f7cf-49fc-a58e-b5b4c5bdfe04"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="7ca5204c-ca90-4d0b-8053-3bdeac2291fe">
+                <propertyInstance
+                  Id="960e50cc-b4f8-456a-9aba-929ff79d2598"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="fcf2da98-af31-4eb0-9f39-179c57f324d2">
+                <propertyInstance
+                  Id="fbb34bd5-e02d-417d-9df8-6240ff0b03b5"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="74e0c93d-8aa4-4436-a07c-4fb76d151bb4">
+                <propertyInstance
+                  Id="99a4cb45-8653-4b54-87e2-3f86cb51800c"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="3d898bc8-c63d-4513-ba2e-56157bdc88fb">
+                <propertyInstance
+                  Id="590bebb7-7f1a-4a4e-9106-0432b75f5d67"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="fe0ab12a-4ab5-46e1-a062-0406ae3ee5a3">
+                <propertyInstance
+                  Id="bfc88f2a-90aa-4969-a0a0-dc9f045e2b60"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="da71e74b-e1a8-4e8b-9317-bf1284c8e58d"
+        name="phungnoiDBEntities"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="8b7fc44e-66b6-455b-a5fe-d9ba24394139"
+            handle="viewcode://./CodeSchema_Class?Assembly%3Dfile:%2F%2F%2FE:%2FSENIOR-PROJECT%2FPhungNoi%2Fbin%2FPhungNoiProject.dll Namespace%3DPhungNoiProject.Models Type%3DphungnoiDBEntities"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="711ab36c-c1b5-485d-87b0-0237b9dd8485"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="9a6aa279-d684-455c-8366-44e615ed79dd">
+                <propertyInstance
+                  Id="20ca52a1-a088-49bd-a154-2ccf6025eb61"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="0f6c30c3-9b95-45ff-bf39-7adb7bf11d49">
+                <propertyInstance
+                  Id="c59404ab-8b3d-41f8-b999-d59e87213b1c"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="ef297b55-e2c5-419f-b6c5-f62e38111e09">
+                <propertyInstance
+                  Id="724cf0b3-acc7-45bc-b4f3-e6bc0b2b796b"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="cc829fcf-984a-43b5-abcd-7fe35a577e1e">
+                <propertyInstance
+                  Id="8ae038d8-890b-4542-a31c-c26bc31d536e"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="b175eca3-5935-4b45-a419-f25f57c124ed">
+                <propertyInstance
+                  Id="2820dac5-a93f-4192-a7ea-da94039619d7"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="78e0baa8-0142-49f5-bc0a-afea2061cbfd"
+        name="Product"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="2df2f537-443f-4004-b6ab-48ab424a0049"
+            handle="viewcode://./CodeSchema_Class?Assembly%3Dfile:%2F%2F%2FE:%2FSENIOR-PROJECT%2FPhungNoi%2Fbin%2FPhungNoiProject.dll Namespace%3DPhungNoiProject.Models Type%3DProduct"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="239b4d49-c93d-40e0-90a9-07561f900546"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="2c62f218-62af-4ed4-9340-4ee2a0190555">
+                <propertyInstance
+                  Id="9e7537f2-9e3d-4a32-b838-a7c04939c576"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="16560b56-75f7-442f-b659-2dd5f0c6ee4b">
+                <propertyInstance
+                  Id="473a0b7d-5526-4fc3-bcc8-521bed301cb9"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="ce05517d-3c7a-4d88-8245-a73ef6567913">
+                <propertyInstance
+                  Id="6ce33faf-75e8-451b-b572-12cb83630a3e"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="91f906ba-fdf4-4cce-8f3e-12966660ecf3">
+                <propertyInstance
+                  Id="4e8a0339-2d7d-48cc-b8c0-a2e7cf78dd0a"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="6da2d797-4dff-466c-b4ef-b1fd7d950f38">
+                <propertyInstance
+                  Id="8ae12975-e3d5-4269-b7b6-7e4f7deb5e5c"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="5eace5da-612c-4d2a-9fae-d7c269903ca6"
+        name="User"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="101b7a6c-aad4-4c50-b5f8-77fa3f5c1d77"
+            handle="viewcode://./CodeSchema_Class?Assembly%3Dfile:%2F%2F%2FE:%2FSENIOR-PROJECT%2FPhungNoi%2Fbin%2FPhungNoiProject.dll Namespace%3DPhungNoiProject.Models Type%3DUser"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="3134a436-0584-4c0a-a48e-b8d1b3ed852c"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="ba3346d3-5dfd-439e-8f76-dc7ef7b65b55">
+                <propertyInstance
+                  Id="8b9f2005-72fa-4ee3-a237-56685409eccd"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="4e38b06e-ba95-478a-9f20-6489b441f9fb">
+                <propertyInstance
+                  Id="5f3dd396-e5ae-452b-84fa-7e70fb14fa10"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="30452747-1a81-4a4f-a0ce-6c6a339bbe35">
+                <propertyInstance
+                  Id="7b2b1628-10cf-429e-a7f6-2cbb8414ba58"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="b344c70e-742a-4c76-9b9f-5ca9129a68e9">
+                <propertyInstance
+                  Id="83278334-9aff-42b2-bf0e-173b5a430896"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="effaac0c-620a-4f12-903a-a7b6eaefc0cd">
+                <propertyInstance
+                  Id="44b9c3b0-314a-4cab-a073-67cc6c891f1b"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+      </class>
+    </packageHasNamedElement>
+  </packagedElements>
+</package>

@@ -1,0 +1,300 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Web.Mvc;
+using PhungNoiProject.Models;
+using System.Web.Security;
+using PhungNoiProject.Filters;
+using System.Net;
+using PhungNoiProject.Services;
+using System.Web.Helpers;
+using System.Configuration;
+using System.IO;
+
+namespace PhungNoiProject.Controllers
+{
+    [Authorize]
+    [InitializeSimpleMembership]
+    public class UserController : Controller
+    {
+        private phungnoiDBEntities db = new phungnoiDBEntities();
+
+        // GET: /User/
+        private IAuthentication authentication = new Authentication();
+
+        public UserController(IAuthentication _authentication)
+        {
+            authentication = _authentication;
+        }
+
+        public UserController()
+        {
+        }
+
+      
+        public ActionResult Index()
+        {
+            List<UserProfile> users = null;
+
+            if (Request != null && Request.Params["q"] != null)
+            {
+                string q = Request.Params["q"];
+                users = db.UserProfile.Where(x => x.UserName.ToLower().Contains(q.ToLower())).ToList();
+            }
+            else
+            {
+                users = db.UserProfile.ToList();
+            }
+             return View("Index", users);
+        }
+
+        //
+        // GET: /User/Details/5
+
+        public ActionResult Details(int id)
+        {
+            UserProfile user = db.UserProfile.Find(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            TempData["Msg"] = string.Format("Details for user '{0}'.", user.UserName);
+            return View("Details", user);
+        }
+
+        [HttpGet]
+        public ActionResult UserProfile(string username)
+        {
+            string idString = WebUtility.UrlDecode(username).Replace("|", ".");
+
+            UserProfile user = db.UserProfile.FirstOrDefault(x => x.UserName == idString);
+
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            return View("UserProfile", user);
+        }
+
+        //
+        // GET: /User/Create
+
+        public ActionResult Create()
+        {
+            return View("Create");
+        }
+
+        //
+        // POST: /User/Create
+
+        [HttpPost]
+        public ActionResult Create(UserProfile user)
+        {
+            UserProfile savedUser = null;
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    //db.User.Add(user);
+                    authentication.CreateUserAndAccount(user);
+                    savedUser = db.UserProfile.FirstOrDefault(x => x.UserName == user.UserName);
+                    if (savedUser != null)
+                    {
+                        savedUser.UserName = user.UserName;
+                        savedUser.firstName = user.firstName;
+                        savedUser.lastName = user.lastName;
+                        savedUser.phoneNumber = user.phoneNumber;
+                        savedUser.address = user.address;
+                        savedUser.Userpassword = "tempPassword";
+                        savedUser.createDate = DateTime.Now;
+                        //savedUser.lastSignInDate = user.lastSignInDate;
+
+                        db.SaveChanges();
+                        authentication.AddUserToRole(savedUser.UserName, "User");
+
+                        WebImage image = null;
+                        if (Request != null)
+                            image = WebImage.GetImageFromRequest();
+
+                        if (image != null)
+                        {
+                            string realFileName = savedUser.UserId + image.FileName;
+                            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+                            string imageFolder = ConfigurationManager.AppSettings["UserImagePath"].ToString();
+                            string fullPath = baseDirectory + imageFolder;
+                            string relativeImagePath = imageFolder + "\\" + realFileName;
+
+                            if (!Directory.Exists(fullPath))
+                            {
+                                Directory.CreateDirectory(fullPath);
+                            }
+                            string imagePath = fullPath + "\\" + realFileName;
+                            image.Save(imagePath);
+                            savedUser.picturePath = relativeImagePath;
+                            db.SaveChanges();
+                        }
+
+                        TempData["Msg"] = string.Format("User '{0}' has been created.", savedUser.UserName);
+                    }
+                }
+                catch (MembershipCreateUserException e)
+                {
+                    ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
+                    return View();
+                }
+                System.Web.Routing.RouteValueDictionary value = new System.Web.Routing.RouteValueDictionary();
+                value.Add("id", savedUser.UserId);
+                return RedirectToAction("Details", value);
+            }
+
+            return View(user);
+        }
+
+        //
+        // GET: /User/Edit/5
+
+        public ActionResult Edit(int id = 0)
+        {
+            UserProfile user = db.UserProfile.Find(id);
+            if (TempData["form"] != null)
+            {
+                user = (UserProfile)TempData["form"];
+                TempData["msg"] = TempData["msg"];
+            }
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            return View("Edit", user);
+        }
+
+        //
+        // POST: /User/Edit/5
+
+        [HttpPost]
+        public ActionResult Edit(UserProfile user)
+        {
+            //User userInDb = db.User.FirstOrDefault(x => x.UserName == user.UserName);
+            if (db.UserProfile.Any(x => x.UserName == user.UserName && x.UserId != user.UserId))
+            {
+                TempData["msg"] = "User name is already exist.";
+                TempData["form"] = user;
+                return Redirect(Request.UrlReferrer.ToString());
+            }
+            if (ModelState.IsValid)
+            {
+                db.Entry(user).State = EntityState.Modified;
+                db.SaveChanges();
+
+                WebImage image = null;
+                if (Request != null)
+                    image = WebImage.GetImageFromRequest();
+
+                if (image != null)
+                {
+                    string realFileName = user.UserId + image.FileName;
+                    string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+                    string imageFolder = ConfigurationManager.AppSettings["UserImagePath"].ToString();
+                    string fullPath = baseDirectory + imageFolder;
+                    string relativeImagePath = imageFolder + "\\" + realFileName;
+
+                    if (!Directory.Exists(fullPath))
+                    {
+                        Directory.CreateDirectory(fullPath);
+                    }
+                    string imagePath = fullPath + "\\" + realFileName;
+                    image.Save(imagePath);
+                    user.picturePath = relativeImagePath;
+                    db.SaveChanges();
+                }
+                 
+            }
+            List<UserProfile> users = null;
+            users = db.UserProfile.ToList();
+            return RedirectToAction("Index", "User", users);
+        }
+
+        //
+        // GET: /User/Delete/5
+
+        public ActionResult Delete(int id = 0)
+        {
+            UserProfile user = db.UserProfile.Find(id);
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            return View("Delete", user);
+        }
+
+        //
+        // POST: /User/Delete/5
+
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            UserProfile user = db.UserProfile.Find(id);
+            if (user != null)
+            {
+                try
+                {
+                    authentication.DeleteUserAccount(user);
+
+                    List<UserProfile> users = db.UserProfile.ToList();
+
+                    return RedirectToAction("Index", "User", users);
+
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.ErrorMessage = ex.Message;
+                }
+            }
+            return View(user);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            db.Dispose();
+            base.Dispose(disposing);
+        }
+        private static string ErrorCodeToString(MembershipCreateStatus createStatus)
+        {
+            // See http://go.microsoft.com/fwlink/?LinkID=177550 for
+            // a full list of status codes.
+            switch (createStatus)
+            {
+                case MembershipCreateStatus.DuplicateUserName:
+                    return "User name already exists. Please enter a different user name.";
+
+                case MembershipCreateStatus.DuplicateEmail:
+                    return "A user name for that e-mail address already exists. Please enter a different e-mail address.";
+
+                case MembershipCreateStatus.InvalidPassword:
+                    return "The password provided is invalid. Please enter a valid password value.";
+
+                case MembershipCreateStatus.InvalidEmail:
+                    return "The e-mail address provided is invalid. Please check the value and try again.";
+
+                case MembershipCreateStatus.InvalidAnswer:
+                    return "The password retrieval answer provided is invalid. Please check the value and try again.";
+
+                case MembershipCreateStatus.InvalidQuestion:
+                    return "The password retrieval question provided is invalid. Please check the value and try again.";
+
+                case MembershipCreateStatus.InvalidUserName:
+                    return "The user name provided is invalid. Please check the value and try again.";
+
+                case MembershipCreateStatus.ProviderError:
+                    return "The authentication provider returned an error. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
+
+                case MembershipCreateStatus.UserRejected:
+                    return "The user creation request has been canceled. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
+
+                default:
+                    return "An unknown error occurred. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
+            }
+        }
+    }
+}

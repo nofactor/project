@@ -1,0 +1,293 @@
+﻿using PhungNoiProject.Filters;
+using PhungNoiProject.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using WebMatrix.WebData;
+using PhungNoiProject.Services;
+namespace PhungNoiProject.Controllers
+{
+
+    // [Authorize]
+
+    [InitializeSimpleMembership]
+    public class HomeController : Controller
+    {
+        private phungnoiDBEntities db = new phungnoiDBEntities();
+
+
+        public ActionResult Index()
+        {
+
+            return View("Index");
+        }
+
+
+
+        public ActionResult Cart()
+        {
+            return View("Cart");
+        }
+
+
+        [HttpPost, ActionName("Cart")]
+        public ActionResult SendCart(Order ord, string submit)
+        {
+            List<Product> completedProduct;
+            Order order;
+            if (ord != null)
+                order = ord;
+            else
+                order = new Order();
+            completedProduct = (List<Product>)Session["cart"];
+            UserProfile profile = null;
+            UserProfile user = null;
+
+            switch (submit)
+            {
+                case "Send Order":
+
+                    if (Session["cart"] != null && completedProduct.Count > 0)
+                    {
+
+                        order.OderDetail = new List<OderDetail>();
+                        profile = db.UserProfile.FirstOrDefault(x => x.UserName == this.User.Identity.Name);
+                        order.UserProfile = profile;
+                        order.orderStatus = 0; // save
+                        order.OderDetail.Clear();
+                        foreach (Product product in completedProduct)
+                        {
+                            if (product.quantity > 0)
+                            {
+                                OderDetail orderDetail = new OderDetail();
+                                orderDetail.productId = product.id;
+                                orderDetail.orderId = order.id;
+                                orderDetail.quantity = product.quantity;
+                                order.OderDetail.Add(orderDetail);
+                            }
+                        }
+                        order.orderDate = DateTime.Now;
+                        order.dueDate = ord.dueDate;
+
+                        db.Order.Add(order);
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        return View("Product", "Home");
+                    }
+
+                    Session.Remove("cart");
+                    user = db.UserProfile.FirstOrDefault(x => x.UserName == this.User.Identity.Name);
+                    return View("History", user.Order);
+
+
+                case "Save Order":
+
+                    if (Session["cart"] != null && completedProduct.Count > 0)
+                    {
+
+                        order.OderDetail = new List<OderDetail>();
+                        profile = db.UserProfile.FirstOrDefault(x => x.UserName == this.User.Identity.Name);
+                        order.UserProfile = profile;
+                        order.orderStatus = 2; // Draft
+                        order.OderDetail.Clear();
+                        foreach (Product product in completedProduct)
+                        {
+                            if (product.quantity > 0)
+                            {
+                                OderDetail orderDetail = new OderDetail();
+                                orderDetail.productId = product.id;
+                                orderDetail.orderId = order.id;
+                                orderDetail.quantity = product.quantity;
+                                order.OderDetail.Add(orderDetail);
+                            }
+                        }
+                        order.orderDate = DateTime.Now;
+                        order.dueDate = ord.dueDate;
+                        db.Order.Add(order);
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        return View("Product", "Home");
+                    }
+
+                    Session.Remove("cart");
+                    user = db.UserProfile.FirstOrDefault(x => x.UserName == this.User.Identity.Name);
+                    return View("History", user.Order);
+                default:
+                    return null;
+            }
+
+
+
+            //TimeSpan noon = new TimeSpan(12,0,0); // โทรมา
+
+            //if (DateTime.Now.TimeOfDay <= noon)
+            //  {
+
+        }
+        [HttpGet]
+        public ActionResult Product()
+        {
+            List<Product> products = null;
+            //////////////////search function//////////////
+            if (Request != null && Request.Params["q"] != null)
+            {
+                string q = Request.Params["q"];
+                products = db.Product.Where(x => x.name.ToLower().Contains(q.ToLower())).ToList();
+            }
+            else
+            {
+                products = db.Product.ToList();
+            }
+
+            ///////////////////////////////////////////////////
+            if (Session != null && Session["cart"] != null)
+            {
+                foreach (Product product in (List<Product>)Session["cart"])
+                {
+                    if (product.quantity > 0)
+                    {
+                        Product p = products.FirstOrDefault(x => x.id == product.id);
+                        if (p != null)
+                        {
+                            p.quantity = product.quantity;
+                        }
+                    }
+                }
+            }
+            ViewResult result = View("Product", products);
+            return result;
+        }
+        [HttpPost]
+        public ActionResult Product(IList<Product> products)
+        {
+            List<Product> completedProduct;
+
+            if (Session["cart"] == null)
+                completedProduct = new List<Product>();
+            else
+                completedProduct = (List<Product>)Session["cart"];
+
+            foreach (Product product in products)
+            {
+                if (product.quantity > 0)
+                {
+                    Product tproduct = db.Product.Find(product.id);
+                    if (tproduct != null)
+                    {
+                        Product orderedItem = completedProduct.FirstOrDefault(x => x.id == product.id);
+                        if (orderedItem != null)
+                            orderedItem.quantity = product.quantity;
+                        else
+                        {
+                            tproduct.quantity = product.quantity;
+                            completedProduct.Add(tproduct);
+                        }
+                    }
+                }
+            }
+            if (Session != null)
+            {
+                Session["cart"] = completedProduct;
+            }
+
+            //return View("Cart");
+            return RedirectToAction("Cart", "Home");
+        }
+
+
+
+
+
+        public class OrderItem
+        {
+            public int id;
+            public string name;
+            public string qty;
+        }
+
+
+
+
+
+
+        public ActionResult History()
+        {
+
+            UserProfile user = db.UserProfile.FirstOrDefault(x => x.UserName == this.User.Identity.Name);
+            return View("History", user.Order);
+        }
+        public ActionResult Details(int id)
+        {
+            Order order = db.Order.Find(id);
+            if (order == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View("Details", order);
+        }
+
+        public ActionResult Delete(int id = 0)
+        {
+            Order order = db.Order.Find(id);
+            if (order == null)
+            {
+                return HttpNotFound();
+            }
+            return View("Delete", order);
+        }
+
+        //
+        // POST: /Order/Delete/5
+
+        [HttpPost, ActionName("Delete")]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Order order = db.Order.Find(id);
+            db.Order.Remove(order);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+
+
+        public ActionResult CopyOrder(int orderId)
+        {
+            Order order = db.Order.FirstOrDefault(x => x.id == orderId);
+
+            List<Product> products = new List<Product>();
+
+            foreach (OderDetail o in order.OderDetail)
+            {
+                o.Product.quantity = o.quantity;
+                products.Add(o.Product);
+            }
+
+            Session["cart"] = products;
+
+            return RedirectToAction("Cart", "Home");
+        }
+
+
+
+
+        public ActionResult About()
+        {
+            return View("About");
+        }
+
+        public ActionResult Contact()
+        {
+
+
+            return View("Contact");
+        }
+
+    }
+}

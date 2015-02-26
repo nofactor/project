@@ -1,0 +1,126 @@
+﻿using PhungNoiProject.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace PhungNoiProject.Controllers
+{
+    public class EstimationController : Controller
+    {
+        //
+        // GET: /Estimation/
+         phungnoiDBEntities db = new phungnoiDBEntities();
+
+        public ActionResult DailyIngredientReport(Order order)//transaction of ingredient per day
+        {
+            return View("DailyIngredient");
+        }
+
+        public ActionResult MonthlyIngredientReport(Order order)
+        {
+            return View("MounthlyIngredient");
+        }
+        public ActionResult WeeklyIngredientReport(Order order)
+        {
+            return View("WeeklyIngredient");
+
+        }
+        public ActionResult YearIngredientReport(Order order)
+        {
+            return View("YearIngredient");
+        }
+
+        ///order report////
+        public ActionResult IndividualOrderReport(int id)
+        {
+            return View("IndividualOrderReport");
+        }
+        public ActionResult TransactionOrderReport()
+        {
+            return View("TransactionOrderReport");
+        }
+
+    
+        /// ingredient report for one ingredient
+
+        public ActionResult DailyOneIngredientReport(int id)
+        {
+            return View("TransactionOrderReport");
+        }
+        public ActionResult WeeklyOneIngredientReport(int id)
+        {
+            return View("TransactionOrderReport");
+        }
+        public ActionResult MonthOneIngredientReport(int id)
+        {
+            return View("TransactionOrderReport");
+        }
+        public ActionResult YearOneIngredientReport(int id)
+        {
+            return View("TransactionOrderReport");
+        }
+
+        private IngredientSummaryModels summaryIngredientByPeriod(int productId, DateTime startDate, DateTime endDate)
+        {
+            var product = db.Product.FirstOrDefault(x => x.productID == productId);
+            if (product != null)
+            {
+                var recipes = db.Recipe.Where(x => x.productID == product.productID);
+
+                int orderSummary = db.Order.Where(x => x.orderDate.Value >= startDate && x.orderDate <= endDate)
+                    .SelectMany(x =>x.OderDetail).Where(x => x.productID == product.productID)
+                    .Sum(x => x.productQuantity);
+
+                IngredientSummaryModels results = new IngredientSummaryModels();
+                results.product = product;
+
+                foreach (Recipe r in recipes)
+                {
+                    IngredientSummaryModels.IngredientSummaryDetail detail = new IngredientSummaryModels.IngredientSummaryDetail();
+
+                    detail.ingredient = r.Ingredient;
+                    detail.amount = r.ingredQuantity.Value * orderSummary;
+
+                    results.ingredientDetails.Add(detail);
+                }
+
+                return results;
+            }
+
+            return null;
+        }
+
+        private IngredientSummaryModels summaryIngredientByPeriodAndMember(int memberId, int productId, DateTime startDate, DateTime endDate)
+        {
+            var product = db.Product.FirstOrDefault(x => x.productID == productId);
+            if (product != null)
+            {
+                var recipes = db.Recipe.Where(x => x.productID == product.productID);
+
+                int orderSummary = db.Order.Where(x => x.orderDate.Value >= startDate && x.orderDate <= endDate && x.memberID == memberId)
+                    .SelectMany(x => x.OderDetail).Where(x => x.productID == product.productID)
+                    .Sum(x => x.productQuantity);
+
+                IngredientSummaryModels results = new IngredientSummaryModels();
+                results.product = product;
+
+                foreach (Recipe r in recipes)
+                {
+                    IngredientSummaryModels.IngredientSummaryDetail detail = new IngredientSummaryModels.IngredientSummaryDetail();
+
+                    detail.ingredient = r.Ingredient;
+                    detail.amount = r.ingredQuantity.Value * orderSummary;
+
+                    results.ingredientDetails.Add(detail);
+                }
+
+                return results;
+            }
+
+            return null;
+        }
+
+    }
+}

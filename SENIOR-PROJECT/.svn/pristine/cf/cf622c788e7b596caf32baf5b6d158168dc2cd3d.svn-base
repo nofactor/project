@@ -1,0 +1,58 @@
+﻿@model PhungNoiProject.Models.Order
+
+@{
+    ViewBag.Title = "Create";
+}
+    <hgroup class="title">
+        <h1>@ViewBag.Title.</h1>
+        <h2>@ViewBag.Message</h2>
+    </hgroup>
+
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+
+        <fieldset>
+            <legend>Order</legend>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.user_id, "Member")
+            </div>
+            <div class="editor-field">
+                @Html.DropDownList("user_id", String.Empty)
+                @Html.ValidationMessageFor(model => model.user_id)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.orderDate)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.orderDate,new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.orderDate)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.dueDate)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.dueDate)
+                @Html.ValidationMessageFor(model => model.dueDate)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.orderStatus)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.orderStatus)
+                @Html.ValidationMessageFor(model => model.orderStatus)
+            </div>
+
+            <p>
+                <input type="submit" value="Create" />
+            </p>
+        </fieldset>
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>

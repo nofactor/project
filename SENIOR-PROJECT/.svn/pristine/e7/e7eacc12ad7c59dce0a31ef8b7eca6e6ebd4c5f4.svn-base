@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="PhungNoiProject.Models.phungnoiDBEntities" Collapsed="true">
+    <Position X="14.5" Y="8.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAEDAAAAAAAABAAAAAAAAAAAEAAAAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>Models\phungnoiDB.Context.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PhungNoiProject.Models.OderDetail" Collapsed="true">
+    <Position X="14.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAECABAAAAAAAAAAAAAAAAAAAAAAAACAAAAAABAAAgA=</HashCode>
+      <FileName>Models\OderDetail.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PhungNoiProject.Models.Order" Collapsed="true">
+    <Position X="14.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAAAAAgAAAAAAAAQAAAAAAAAAAAgAMgA=</HashCode>
+      <FileName>Models\Order.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PhungNoiProject.Models.Product" Collapsed="true">
+    <Position X="14.5" Y="3" Width="1.5" />
+    <InheritanceLine Type="System.Object" FixedToPoint="true">
+      <Path>
+        <Point X="17.25" Y="2.562" />
+        <Point X="17.25" Y="3.312" />
+        <Point X="16" Y="3.312" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAIAAAAAAAAAAAAAAAAAEAACAQAAIAAAAEgA=</HashCode>
+      <FileName>Models\Product.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PhungNoiProject.Models.User" Collapsed="true">
+    <Position X="14.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAABABCAgAAABgAgAAEIAAAAAAQAACQAAAAA=</HashCode>
+      <FileName>Models\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PhungNoiProject.Models.webpages_Roles" Collapsed="true">
+    <Position X="14.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>Models\webpages_Roles.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="System.Object" Collapsed="true">
+    <Position X="16.5" Y="2" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="PhungNoiProject.Models.LocalPasswordModel" Collapsed="true">
+    <Position X="14.5" Y="6.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAABAAAAAAAEAAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>Models\AccountModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PhungNoiProject.Models.LoginModel" Collapsed="true">
+    <Position X="14.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAQAAAAAgAAA=</HashCode>
+      <FileName>Models\AccountModels.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

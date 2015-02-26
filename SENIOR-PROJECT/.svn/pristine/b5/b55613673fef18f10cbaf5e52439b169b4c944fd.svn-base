@@ -1,0 +1,109 @@
+﻿using PhungNoiProject.Filters;
+using PhungNoiProject.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using WebMatrix.WebData;
+
+namespace PhungNoiProject.Controllers
+{
+
+    // [Authorize]
+
+    [InitializeSimpleMembership]
+    public class HomeController : Controller 
+    {
+        private phungnoiDBEntities db = new phungnoiDBEntities();
+        //  public IList<Product> products;
+        public ActionResult Index()
+        {
+            //if (!WebSecurity.IsAuthenticated)
+            //    return RedirectToAction("Login", "Account");
+            //phungnoiDBEntities pe = new phungnoiDBEntities();
+            //products = pe.Product.Where(x => x != null).ToList();
+            //ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
+            //ViewBag.Products = products;
+            return View("Index");
+        }
+        public ActionResult Cart()
+        {
+            return View("Cart");
+        }
+        public ActionResult Product()
+        {
+            List<Product> products = null;
+            if (Request != null && Request.Params["q"] != null)
+            {
+                string q = Request.Params["q"];
+                products = db.Product.Where(x => x.name.ToLower().Contains(q.ToLower())).ToList();
+            }
+            else
+            {
+                products = db.Product.ToList();
+            }
+            if (Session != null && Session["cart"] != null)
+            {
+                foreach (Product product in (List<Product>)Session["cart"])
+                {
+                    if (product.quantity > 0)
+                    {
+                        Product p = products.FirstOrDefault(x => x.id == product.id);
+                        if (p != null)
+                        {
+                            p.quantity = product.quantity;
+                        }
+                    }
+                }
+            }
+            ViewResult result = View("Product", products);
+            return result;
+        }
+        [HttpPost]
+        public ActionResult Product(IList<PhungNoiProject.Models.Product> products)
+        {
+
+            List<Product> completedProduct = new List<Product>();
+            foreach (Product product in products)
+            {
+                if (product.quantity > 0)
+                {
+                    Product tproduct = db.Product.Find(product.id);
+                    if (tproduct != null)
+                    {
+                        tproduct.quantity = product.quantity;
+                        completedProduct.Add(tproduct);
+                    }
+                }
+            }
+            if (Session != null)
+            {
+                Session["cart"] = completedProduct;
+            }
+
+            return View("Cart");
+        }
+        public class OrderItem
+        {
+            public int id;
+            public string name;
+            public string qty;
+        }
+        public ActionResult History()
+        {
+            return View("History");
+        }
+        public ActionResult About()
+        {
+            return View("About");
+        }
+
+        public ActionResult Contact()
+        {
+
+
+            return View("Contact");
+        }
+    }
+}

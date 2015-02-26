@@ -1,0 +1,90 @@
+﻿@model IEnumerable<PhungNoiProject.Models.Product>
+
+@{
+    ViewBag.Title = "Index";
+}
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">Product list</h1>
+    </div>
+
+
+    <div class="panel panel-primary">
+
+        <div class="panel-heading">
+            Select products
+        </div>
+        <!-- /.panel-heading -->
+        <div class="panel-body">
+            <div class="table-responsive">
+                @using (Html.BeginForm("Product", "Home", new { SubmitModel = Model }, FormMethod.Post))
+                {
+                    @Html.ValidationSummary(true)
+                    <form role="form">
+                        <table class="table">
+
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>@Html.DisplayNameFor(model => model.picture)</th>
+                                    <th>@Html.DisplayNameFor(model => model.name)</th>
+                                    <th>@Html.DisplayNameFor(model => model.price)</th>
+                                    <th>@Html.DisplayNameFor(model => model.category)</th>
+                                    <th>@Html.DisplayNameFor(model => model.info)</th>
+                                    <th>Quantity</th>
+
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                @foreach (var item in Model)
+                                {
+                             
+                                    <tr>
+
+                                        <td>@Html.DisplayFor(model => item.id)</td>
+                                        <td>
+                                            <img src="@Html.ValueFor(model => item.picture)"/></td>
+                                        <td>@Html.DisplayFor(model => item.name)</td>
+                                        <td>@Html.DisplayFor(model => item.price)</td>
+                                        <td>@Html.DisplayFor(model => item.category)</td>
+                                        <td>@Html.DisplayFor(model => item.info)</td>
+                                        <td>@Html.TextBoxFor(model => item.quantity,new { id = string.Format("Qty_{0}", item.id), type="number",min=0,max=1000 })</td>
+
+                                        <td>
+                                            <input type="button" value="add" onclick="addItem(@Html.DisplayFor(model => item.id),'@Html.DisplayFor(model => item.name)')" /></td>
+                                    </tr>
+                               
+                                           
+                                }
+                            </tbody>
+                        </table>
+                        <div id="orderList"></div>
+                        <input type="submit" value="Submit" />
+                    </form>
+                }
+            </div>
+        </div>
+
+        <script>
+            function orderItem(id, name, qty){
+                var id = id;
+                var name = name;
+                var qty = qty;
+            }
+            
+            function addItem(id, name) {
+                if(document.getElementById("Qty_"+ id ).value > 0){
+                    var orderList = document.getElementById("orderList");
+                    orderList.innerText += id + ":" + name + ":" + document.getElementById("Qty_"+ id ).value+"\r\n";
+                }
+            }
+        </script>
+
+
+        <!-- /.table-responsive -->
+    </div>
+
+    <!-- /.panel-body -->
+</div>

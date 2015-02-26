@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="441d4179f94a48989844ef0d88af5d27" Name="Diagram1" ShowGrid="true" DisplayType="true" ZoomLevel="75">
+        <EntityTypeShape EntityType="phungnoiDBModel.porduct_Ingre" Width="1.875" PointX="7.625" PointY="9.875" />
+        <AssociationConnector Association="phungnoiDBModel.Ingredientporduct_Ingre" />
+        <AssociationConnector Association="phungnoiDBModel.Productporduct_Ingre" />
+        <EntityTypeShape EntityType="phungnoiDBModel.Ingredient" Width="1.5" PointX="4.6609570517488557" PointY="30.6778235429329" />
+        <EntityTypeShape EntityType="phungnoiDBModel.OderDetail" Width="1.5" PointX="0.15549370281188454" PointY="22.981310110064832" />
+        <EntityTypeShape EntityType="phungnoiDBModel.Order" Width="1.5" PointX="10.754402618275211" PointY="14.123866788169307" />
+        <EntityTypeShape EntityType="phungnoiDBModel.Product" Width="1.5" PointX="1.5652358334349634" PointY="27.353430492502373" />
+        <EntityTypeShape EntityType="phungnoiDBModel.ProductContain" Width="1.5" PointX="11.970185101018373" PointY="6.6981276900964453" />
+        <EntityTypeShape EntityType="phungnoiDBModel.UserProfile" Width="1.5" PointX="4.7263251229777588" PointY="2.229115382874904" />
+        <EntityTypeShape EntityType="phungnoiDBModel.webpages_Roles" Width="1.5" PointX="10.20975687085174" PointY="20.552114049229825" />
+        <AssociationConnector Association="phungnoiDBModel.FK_OderDetail_Order" />
+        <AssociationConnector Association="phungnoiDBModel.FK_OderDetail_Product" />
+        <AssociationConnector Association="phungnoiDBModel.FK_Order_User" />
+        <AssociationConnector Association="phungnoiDBModel.webpages_UsersInRoles" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

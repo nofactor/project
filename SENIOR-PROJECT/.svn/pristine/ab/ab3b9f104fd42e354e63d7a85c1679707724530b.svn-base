@@ -1,0 +1,72 @@
+﻿@model PhungNoiProject.Models.Product
+
+@{
+    ViewBag.Title = "EditRecipe";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">@ViewBag.Title</h1>
+    </div>
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            Edit your Recipe
+        </div>
+        <div class="panel-body">
+
+            @using (Html.BeginForm("SaveRecipe", "Recipe", FormMethod.Post))
+            {
+                @Html.ValidationSummary(true)
+
+                <div class="col-lg-5">
+                    <form role="form">
+
+                        <div class="form-group">
+                            <img src="..\..\@Html.DisplayFor(model => model.picture)" height="100"; width="150"/>
+                        </div>
+
+                        <div class="form-group">
+                            <label>@Html.DisplayName("Name"):&nbsp</label>
+                            @Html.DisplayFor(model => model.name, new { @class = "form-control" })
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>@Html.DisplayName("Price"):&nbsp</label>
+                            @Html.DisplayFor(model => model.price, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            <label>@Html.DisplayName("Category"):&nbsp</label>
+                            @Html.DisplayFor(model => model.category)
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>@Html.DisplayName("  Ingredient ID "):&nbsp</label>
+                            @Html.EditorFor(model => Model.quantity)
+                        </div>
+                        <div class="form-group">
+                            <label>@Html.DisplayName(" Quantity"):&nbsp</label>
+                            @Html.EditorFor(model => Model.price)
+                        </div>
+                        <div>@Html.EditorFor(model => Model.name)</div>
+
+
+
+
+
+                        @Html.ActionLink("Back to List", "Index", "Recipe")
+
+                    </form>
+                </div>    
+                
+            }
+        </div>
+
+        <form />
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

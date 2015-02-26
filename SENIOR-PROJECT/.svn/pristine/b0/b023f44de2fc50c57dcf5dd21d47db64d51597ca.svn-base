@@ -1,0 +1,65 @@
+﻿using PhungNoiProject.Filters;
+using PhungNoiProject.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using WebMatrix.WebData;
+
+namespace PhungNoiProject.Controllers
+{
+
+    // [Authorize]
+
+    [InitializeSimpleMembership]
+    public class HomeController : Controller
+    {
+        private phungnoiDBEntities db = new phungnoiDBEntities();
+        //  public IList<Product> products;
+        public ActionResult Index()
+        {
+            //if (!WebSecurity.IsAuthenticated)
+            //    return RedirectToAction("Login", "Account");
+            //phungnoiDBEntities pe = new phungnoiDBEntities();
+            //products = pe.Product.Where(x => x != null).ToList();
+            //ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
+            //ViewBag.Products = products;
+            return View();
+        }
+        public ActionResult Cart()
+        {
+            return View();
+        }
+        public ActionResult Product()
+        {
+            ViewResult result = View(db.Product.ToList());
+            return result;
+        }
+        [HttpPost]
+        public ActionResult Product(IEnumerable<Product> SubmitModel)
+        {
+            ViewResult result = View(db.Product.ToList());
+            result.ViewName = "Index";
+            result.ViewBag.Title = "Product";
+            return result;
+        }
+        public ActionResult History()
+        {
+            return View();
+        }
+        public ActionResult About()
+        {
+
+
+            return View();
+        }
+
+        public ActionResult Contact()
+        {
+
+
+            return View();
+        }
+    }
+}

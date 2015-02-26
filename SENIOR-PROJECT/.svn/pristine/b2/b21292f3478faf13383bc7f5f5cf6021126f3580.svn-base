@@ -1,0 +1,101 @@
+﻿@model PhungNoiProject.Models.User
+
+@{
+    ViewBag.Title = "Create";
+}
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">@ViewBag.Title</h1>
+    </div>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            Add new product
+        </div>
+        <div class="panel-body">
+            @using (Html.BeginForm())
+            {
+                @Html.ValidationSummary(true)
+                
+                <form role="form">
+                    <div class="col-lg-5">
+
+                        <div class="form-group">
+                            <label>@Html.LabelFor(model => model.UserName)</label>
+                            @Html.TextBoxFor(model => model.UserName, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.UserName)
+                            <p class="help-block">Input product Username</p>
+                        </div>
+                        <div class="form-group">
+                            <label>@Html.LabelFor(model => model.Userpassword)</label>
+                            @Html.TextBoxFor(model => model.Userpassword, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Userpassword)
+                            <p class="help-block">Input product password</p>
+                        </div>
+                        <div class="form-group">
+                            <label>@Html.LabelFor(model => model.firstName)</label>
+                            @Html.TextBoxFor(model => model.firstName, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.firstName)
+                            <p class="help-block">Input product firstName</p>
+                        </div>
+                        <div class="form-group">
+                            <label>@Html.LabelFor(model => model.lastName)</label>
+                            @Html.TextBoxFor(model => model.lastName, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.lastName)
+                            <p class="help-block">Input product lastName</p>
+                        </div>
+                        <div class="form-group">
+                            <label>@Html.LabelFor(model => model.phoneNumber)</label>
+                            @Html.TextBoxFor(model => model.phoneNumber, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.phoneNumber)
+                            <p class="help-block">Input product phoneNumber</p>
+                        </div>
+
+                        <p>
+                            <input type="submit" class="btn btn-primary" value="Create" />
+                        </p>
+                    </div>
+
+                    <div class="col-lg-5">
+
+                        <div class="form-group">
+                            <label>@Html.LabelFor(model => model.address)</label>
+                            @Html.TextBoxFor(model => model.address, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.address)
+                            <p class="help-block">Input product address</p>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>@Html.LabelFor(model => model.picturePath)</label>
+                            @Html.TextBoxFor(model => model.picturePath, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.picturePath)
+                            <p class="help-block">Input product name</p>
+                        </div>
+                        <div class="form-group">
+                            <label>@Html.LabelFor(model => model.createDate)</label>
+                            @Html.TextBoxFor(model => model.createDate, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.createDate)
+                            <p class="help-block">Input product createDate</p>
+                        </div>
+                        <div class="form-group">
+                            <label>@Html.LabelFor(model => model.lastSignInDate)</label>
+                            @Html.TextBoxFor(model => model.lastSignInDate, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.lastSignInDate)
+                            <p class="help-block">Input product lastSignInDate</p>
+                        </div>
+                    </div>
+                </form>
+            }
+
+        </div>
+
+    </div>
+</div>
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
